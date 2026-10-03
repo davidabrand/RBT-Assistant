@@ -1,0 +1,2572 @@
+
+/* ============================================================
+   Office Puzzle RBT Assistant — Product Design System
+   v1.1.50
+   This stylesheet is the final visual layer. Legacy selectors remain
+   for compatibility; visible components are normalized here.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* Brand / semantic */
+  --ds-accent: #2563eb;
+  --ds-accent-hover: #1d4ed8;
+  --ds-accent-pressed: #1e40af;
+  --ds-danger: #b42318;
+  --ds-danger-soft: #fff2f0;
+  --ds-danger-border: #ffc8c1;
+
+  /* Neutral palette */
+  --ds-bg: #f6f8fb;
+  --ds-surface: #ffffff;
+  --ds-surface-raised: #ffffff;
+  --ds-surface-subtle: #f3f6fa;
+  --ds-surface-strong: #eaf0f7;
+  --ds-text: #172033;
+  --ds-muted: #596174;
+  --ds-border: #d9e0ea;
+  --ds-border-strong: #bdc8d8;
+  --ds-overlay: rgba(15, 23, 42, .46);
+  --ds-focus: rgba(37, 99, 235, .28);
+
+  /* 4 / 8 px spacing scale */
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 24px;
+  --ds-space-6: 32px;
+
+  /* Typography */
+  --ds-font-xs: 11px;
+  --ds-font-sm: 12px;
+  --ds-font-md: 14px;
+  --ds-font-lg: 17px;
+  --ds-font-xl: 21px;
+  --ds-font-2xl: 26px;
+  --ds-line-tight: 1.25;
+  --ds-line-normal: 1.5;
+
+  /* Shape */
+  --ds-radius-sm: 8px;
+  --ds-radius-md: 12px;
+  --ds-radius-lg: 16px;
+  --ds-radius-xl: 20px;
+  --ds-radius-pill: 999px;
+
+  /* Elevation */
+  --ds-shadow-sm: 0 1px 2px rgba(15, 23, 42, .05);
+  --ds-shadow-md: 0 8px 24px rgba(15, 23, 42, .08);
+  --ds-shadow-lg: 0 20px 48px rgba(15, 23, 42, .16);
+
+  /* Motion — only transform / opacity transitions */
+  --ds-motion-fast: 160ms;
+  --ds-motion-normal: 200ms;
+  --ds-ease: cubic-bezier(.2, .8, .2, 1);
+
+  /* Compatibility aliases used by the existing UI */
+  --bg: var(--ds-bg);
+  --card: var(--ds-surface);
+  --text: var(--ds-text);
+  --muted: var(--ds-muted);
+  --border: var(--ds-border);
+  --accent: var(--ds-accent);
+  --accent2: var(--ds-accent-hover);
+  --shadow: var(--ds-shadow-md);
+}
+body.dark {
+  color-scheme: dark;
+
+  --ds-bg: #0f141c;
+  --ds-surface: #161d27;
+  --ds-surface-raised: #1a2330;
+  --ds-surface-subtle: #111822;
+  --ds-surface-strong: #212c3a;
+  --ds-text: #f2f5f9;
+  --ds-muted: #aab4c4;
+  --ds-border: #2d3949;
+  --ds-border-strong: #435169;
+  --ds-overlay: rgba(2, 6, 23, .66);
+  --ds-focus: rgba(96, 165, 250, .34);
+  --ds-danger-soft: #301719;
+  --ds-danger-border: #6d2c31;
+
+  --bg: var(--ds-bg);
+  --card: var(--ds-surface);
+  --text: var(--ds-text);
+  --muted: var(--ds-muted);
+  --border: var(--ds-border);
+  --accent: var(--ds-accent);
+  --accent2: var(--ds-accent-hover);
+  --shadow: var(--ds-shadow-md);
+}
+/* Stable side-panel canvas. Chrome owns the outer side-panel width. */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+body {
+  margin: 0;
+  background: var(--ds-bg);
+  color: var(--ds-text);
+  font-size: var(--ds-font-md);
+  line-height: var(--ds-line-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+main {
+  width: 100%;
+  min-width: 0;
+  padding: var(--ds-space-3);
+  gap: var(--ds-space-3);
+}
+/* Old broad transitions are intentionally neutralized. */
+body,
+.card,
+input,
+textarea,
+select,
+button,
+.notice,
+.weekDayCard,
+.summaryBox,
+.detectedStrip,
+.todayBox,
+.topbar {
+  transition: none;
+}
+/* Keyboard focus is consistent across every interactive control. */
+:where(
+  button,
+input,
+textarea,
+select,
+summary,
+[role="button"],
+[role="option"],
+[tabindex]
+):focus-visible {
+  outline: 3px solid var(--ds-focus);
+  outline-offset: 2px;
+}
+/* Header */
+.topbar {
+  padding: var(--ds-space-3) var(--ds-space-4);
+  background: color-mix(in srgb, var(--ds-surface) 94%, transparent);
+  border-bottom: 1px solid var(--ds-border);
+  box-shadow: var(--ds-shadow-sm);
+}
+.brandLockup {
+  gap: var(--ds-space-2);
+}
+.brandLogo {
+  width: 32px;
+  height: 32px;
+  flex-basis: 32px;
+  border-radius: var(--ds-radius-sm);
+  filter: none;
+}
+.brandText h1,
+h1 {
+  margin: 0;
+  font-size: var(--ds-font-xl);
+  line-height: var(--ds-line-tight);
+  letter-spacing: -.02em;
+}
+h2 {
+  margin: 0;
+  font-size: var(--ds-font-lg);
+  line-height: var(--ds-line-tight);
+}
+h3 {
+  line-height: var(--ds-line-tight);
+}
+.eyebrow {
+  font-size: var(--ds-font-xs);
+  font-weight: 800;
+  letter-spacing: .10em;
+  color: var(--ds-accent);
+}
+/* Surfaces */
+.card {
+  padding: var(--ds-space-4);
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-lg);
+  box-shadow: var(--ds-shadow-sm);
+}
+.compact {
+  padding: var(--ds-space-3) var(--ds-space-4);
+}
+.summaryBox,
+.weekDayCard,
+.todayBox,
+.batchItem,
+.notice.subtle,
+.behaviorCard,
+.todayBehavior {
+  background: var(--ds-surface-subtle);
+  border-color: var(--ds-border);
+  box-shadow: none;
+}
+.todayBox {
+  padding: var(--ds-space-3);
+  border-radius: var(--ds-radius-md);
+}
+.weekDayCard.today {
+  background: color-mix(in srgb, var(--ds-accent) 8%, var(--ds-surface));
+  border-color: color-mix(in srgb, var(--ds-accent) 46%, var(--ds-border));
+}
+.bigNumber {
+  color: var(--ds-accent);
+  font-size: var(--ds-font-2xl);
+  font-weight: 800;
+}
+/* Text */
+.label,
+.field > span,
+.bindingText,
+.muted,
+.small,
+.customSwitch small,
+.customizeSelectRow small,
+.weekDayCard .day,
+.weekDayCard .actualMini {
+  color: var(--ds-muted);
+}
+.label,
+.field > span {
+  font-size: var(--ds-font-sm);
+  font-weight: 650;
+}
+.value {
+  color: var(--ds-text);
+  font-size: var(--ds-font-md);
+  font-weight: 750;
+}
+/* Form controls */
+input,
+textarea,
+select {
+  min-height: 40px;
+  padding: var(--ds-space-2) var(--ds-space-3);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  font-size: var(--ds-font-md);
+}
+input:hover:not(:disabled),
+textarea:hover:not(:disabled),
+select:hover:not(:disabled) {
+  border-color: var(--ds-border-strong);
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--ds-accent);
+  box-shadow: 0 0 0 3px var(--ds-focus);
+}
+/* Buttons */
+button {
+  min-height: 40px;
+  border-radius: var(--ds-radius-md);
+  padding: var(--ds-space-2) var(--ds-space-3);
+  font-size: var(--ds-font-sm);
+  font-weight: 750;
+  transition:
+    transform var(--ds-motion-fast) var(--ds-ease),
+    opacity var(--ds-motion-fast) var(--ds-ease);
+}
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+button:active:not(:disabled) {
+  transform: translateY(0) scale(.98);
+}
+button:disabled {
+  opacity: .45;
+}
+.primary {
+  background: var(--ds-accent);
+  color: #ffffff;
+}
+.primary:hover:not(:disabled) {
+  background: var(--ds-accent-hover);
+}
+.primary:active:not(:disabled) {
+  background: var(--ds-accent-pressed);
+}
+.secondary,
+.iconBtn,
+.navArrow,
+.weekNavArrow {
+  background: var(--ds-surface-strong);
+  color: var(--ds-text);
+  border: 1px solid var(--ds-border);
+}
+.secondary:hover:not(:disabled),
+.iconBtn:hover:not(:disabled),
+.navArrow:hover:not(:disabled),
+.weekNavArrow:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--ds-accent) 7%, var(--ds-surface-strong));
+}
+.iconBtn {
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  min-height: 38px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+button.dangerSoft,
+#stickyStop,
+#autoBatchStop {
+  color: var(--ds-danger);
+  background: var(--ds-danger-soft);
+  border-color: var(--ds-danger-border);
+}
+/* Pills / statuses */
+.pill,
+.badge {
+  min-height: 24px;
+  padding: var(--ds-space-1) var(--ds-space-2);
+  border-radius: var(--ds-radius-pill);
+  font-size: var(--ds-font-xs);
+}
+.pill,
+.badge.neutral {
+  background: var(--ds-surface-strong);
+  color: var(--ds-muted);
+}
+.badge.ok {
+  background: color-mix(in srgb, var(--ds-accent) 10%, var(--ds-surface));
+  color: var(--ds-accent);
+}
+.badge.bad {
+  background: var(--ds-danger-soft);
+  color: var(--ds-danger);
+}
+/* Feedback */
+.notice,
+.batchRunStatus {
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-subtle);
+  border: 1px solid var(--ds-border);
+  color: var(--ds-text);
+  font-size: var(--ds-font-sm);
+  line-height: var(--ds-line-normal);
+}
+.toast {
+  left: var(--ds-space-3);
+  right: var(--ds-space-3);
+  padding: var(--ds-space-3);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-text);
+  color: var(--ds-surface);
+  box-shadow: var(--ds-shadow-lg);
+  font-size: var(--ds-font-sm);
+}
+.toast.validationToast {
+  background: var(--ds-danger);
+  color: #ffffff;
+}
+/* Empty states */
+.emptyState,
+.batchList > .muted.small:only-child {
+  min-height: 72px;
+  display: grid;
+  place-items: center;
+  margin-top: var(--ds-space-2);
+  padding: var(--ds-space-4);
+  border: 1px dashed var(--ds-border-strong);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-subtle);
+  color: var(--ds-muted);
+  text-align: center;
+  font-size: var(--ds-font-sm);
+}
+/* Custom program selector */
+.customSelectTrigger {
+  min-height: 42px;
+  border-radius: var(--ds-radius-md);
+  border-color: var(--ds-border);
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  transition:
+    transform var(--ds-motion-fast) var(--ds-ease),
+    opacity var(--ds-motion-fast) var(--ds-ease);
+}
+.customSelectTrigger:hover {
+  border-color: var(--ds-border-strong);
+}
+.customProgramSelect.open .customSelectTrigger {
+  border-color: var(--ds-accent);
+  box-shadow: 0 0 0 3px var(--ds-focus);
+}
+.customSelectMenu {
+  padding: var(--ds-space-1);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-raised);
+  box-shadow: var(--ds-shadow-lg);
+}
+.customSelectOption {
+  min-height: 40px;
+  border-radius: var(--ds-radius-sm);
+  background: transparent;
+  color: var(--ds-text);
+}
+.customSelectOption:hover,
+.customSelectOption:focus-visible {
+  background: var(--ds-surface-strong);
+}
+.customSelectOption.selected {
+  background: color-mix(in srgb, var(--ds-accent) 10%, var(--ds-surface));
+  color: var(--ds-accent);
+}
+/* Task list */
+.batchItem {
+  gap: var(--ds-space-2);
+  padding: var(--ds-space-3);
+  border-radius: var(--ds-radius-md);
+}
+.batchDeleteButton {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: var(--ds-radius-sm);
+  border-color: var(--ds-border);
+  background: var(--ds-surface-strong);
+  color: var(--ds-muted);
+}
+.batchDeleteButton:hover:not(:disabled),
+.batchDeleteButton:focus-visible:not(:disabled) {
+  color: #ffffff;
+  background: var(--ds-accent);
+  border-color: var(--ds-accent);
+  box-shadow: none;
+}
+/* Sticky primary controls */
+.stickyActionBar {
+  gap: var(--ds-space-1);
+  padding: var(--ds-space-2);
+  border: 1px solid var(--ds-border);
+  background: color-mix(in srgb, var(--ds-surface) 96%, transparent);
+  box-shadow: var(--ds-shadow-lg);
+}
+/* Secondary actions stay visually quiet */
+.moreActions {
+  margin-top: var(--ds-space-3);
+  padding-top: var(--ds-space-2);
+  border-top: 1px solid var(--ds-border);
+}
+.moreActions > summary {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ds-space-1) 0;
+  color: var(--ds-muted);
+  font-size: var(--ds-font-sm);
+}
+.moreActions > summary::after {
+  color: var(--ds-accent);
+  transition: transform var(--ds-motion-fast) var(--ds-ease);
+}
+/* Customize drawer */
+.customizeBackdrop,
+.rbtModalBackdrop,
+.welcomeBackdrop {
+  background: var(--ds-overlay);
+}
+.customizeDrawer {
+  padding: var(--ds-space-4);
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  border-left: 1px solid var(--ds-border);
+  box-shadow: var(--ds-shadow-lg);
+}
+.customizeHeader {
+  background: color-mix(in srgb, var(--ds-surface) 96%, transparent);
+  border-color: var(--ds-border);
+}
+.customizeSection {
+  margin-top: var(--ds-space-3);
+  padding: var(--ds-space-3);
+  border-color: var(--ds-border);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-subtle);
+}
+.customizePreset {
+  min-height: 68px;
+  border-color: var(--ds-border);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface);
+  color: var(--ds-text);
+}
+.customizePreset.active {
+  border-color: var(--ds-accent);
+  background: color-mix(in srgb, var(--ds-accent) 8%, var(--ds-surface));
+  box-shadow: none;
+}
+.customizeFooter {
+  background: color-mix(in srgb, var(--ds-surface) 96%, transparent);
+  border-color: var(--ds-border);
+}
+.customizeGuideButton {
+  margin-top: 0;
+}
+/* Confirmation dialog */
+.rbtModal {
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-xl);
+  background: var(--ds-surface-raised);
+  color: var(--ds-text);
+  box-shadow: var(--ds-shadow-lg);
+}
+.rbtModalMessage {
+  color: var(--ds-muted);
+  line-height: var(--ds-line-normal);
+}
+/* First-run welcome */
+.welcomeBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 22000;
+  display: grid;
+  place-items: center;
+  padding: var(--ds-space-4);
+  backdrop-filter: blur(4px);
+}
+.welcomeBackdrop[hidden] {
+  display: none !important;
+}
+.welcomeDialog {
+  width: min(100%, 430px);
+  max-height: calc(100vh - (var(--ds-space-4) * 2));
+  overflow: auto;
+  padding: var(--ds-space-5);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-xl);
+  background: var(--ds-surface-raised);
+  box-shadow: var(--ds-shadow-lg);
+}
+.welcomeBrand {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  margin-bottom: var(--ds-space-4);
+}
+.welcomeLogo {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--ds-radius-md);
+}
+.welcomeProduct {
+  margin-top: var(--ds-space-1);
+  color: var(--ds-text);
+  font-size: var(--ds-font-md);
+  font-weight: 800;
+}
+.welcomeDialog h2 {
+  margin: 0;
+  max-width: 18ch;
+  font-size: var(--ds-font-2xl);
+  letter-spacing: -.025em;
+}
+.welcomeLead {
+  margin: var(--ds-space-2) 0 var(--ds-space-4);
+  color: var(--ds-muted);
+  font-size: var(--ds-font-md);
+}
+.welcomeSteps {
+  display: grid;
+  gap: var(--ds-space-2);
+}
+.welcomeStep {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: var(--ds-space-3);
+  align-items: start;
+  padding: var(--ds-space-3);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-subtle);
+}
+.welcomeStepNumber {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-accent);
+  color: #ffffff;
+  font-size: var(--ds-font-sm);
+  font-weight: 800;
+}
+.welcomeStep strong {
+  color: var(--ds-text);
+  font-size: var(--ds-font-md);
+}
+.welcomeStep p {
+  margin: var(--ds-space-1) 0 0;
+  color: var(--ds-muted);
+  font-size: var(--ds-font-sm);
+  line-height: var(--ds-line-normal);
+}
+.welcomeTip {
+  margin-top: var(--ds-space-3);
+  padding: var(--ds-space-3);
+  border-radius: var(--ds-radius-md);
+  background: color-mix(in srgb, var(--ds-accent) 8%, var(--ds-surface));
+  color: var(--ds-text);
+  font-size: var(--ds-font-sm);
+}
+.welcomeActions {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--ds-space-2);
+  margin-top: var(--ds-space-4);
+}
+.welcomeFootnote {
+  margin-top: var(--ds-space-3);
+  color: var(--ds-muted);
+  font-size: var(--ds-font-xs);
+  text-align: center;
+}
+/* Startup shell */
+.startupSkeleton {
+  min-height: 420px;
+  border-color: var(--ds-border);
+  background: var(--ds-surface);
+}
+.skeletonLine,
+.skeletonGrid span {
+  background: var(--ds-surface-strong);
+}
+/* Dark mode active surfaces are normalized here,
+overriding legacy literals. */
+body.dark .topbar,
+body.dark .card,
+body.dark .todayBox,
+body.dark .weekDayCard,
+body.dark .summaryBox,
+body.dark .notice.subtle,
+body.dark .customSelectTrigger,
+body.dark .customSelectMenu,
+body.dark .customSelectOption,
+body.dark input,
+body.dark textarea,
+body.dark select {
+  background-color: inherit;
+}
+body.dark .topbar {
+  background: color-mix(in srgb, var(--ds-surface) 94%, transparent);
+}
+body.dark .card,
+body.dark .customSelectMenu,
+body.dark .rbtModal,
+body.dark .customizeDrawer,
+body.dark .welcomeDialog {
+  background: var(--ds-surface);
+  border-color: var(--ds-border);
+}
+body.dark input,
+body.dark textarea,
+body.dark select,
+body.dark .customSelectTrigger {
+  background: var(--ds-surface-subtle);
+  color: var(--ds-text);
+  border-color: var(--ds-border);
+}
+body.dark .weekDayCard,
+body.dark .summaryBox,
+body.dark .todayBox,
+body.dark .notice.subtle,
+body.dark .batchItem {
+  background: var(--ds-surface-subtle);
+  border-color: var(--ds-border);
+  color: var(--ds-text);
+}
+body.dark .secondary,
+body.dark .iconBtn,
+body.dark .navArrow,
+body.dark .weekNavArrow {
+  background: var(--ds-surface-strong);
+  color: var(--ds-text);
+  border-color: var(--ds-border);
+}
+body.dark .bindingText,
+body.dark .muted,
+body.dark .small,
+body.dark .label,
+body.dark .labelInline,
+body.dark .weekDayCard .day,
+body.dark .weekDayCard .actualMini {
+  color: var(--ds-muted);
+}
+
+/* Small widths stay usable without horizontal clipping. */
+@media (max-width: 340px) {
+main {
+    padding: var(--ds-space-2);
+    gap: var(--ds-space-2);
+  }
+.card {
+    padding: var(--ds-space-3);
+  }
+.topbar {
+    padding: var(--ds-space-2) var(--ds-space-3);
+  }
+.brandText h1 {
+    font-size: var(--ds-font-lg);
+  }
+.welcomeDialog {
+    padding: var(--ds-space-4);
+  }
+.welcomeActions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Respect OS motion preferences across the full extension. */
+@media (prefers-reduced-motion: reduce) {
+*,
+*::before,
+*::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+/* ============================================================
+   v1.1.52 — production interaction/status polish
+   ============================================================ */
+
+button.isActionBusy {
+  pointer-events: none;
+  opacity: .72;
+  cursor: progress;
+}
+button.isActionBusy::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  display: inline-block;
+  margin-left: var(--ds-space-2);
+  border-radius: var(--ds-radius-pill);
+  background: currentColor;
+  opacity: .7;
+  animation: dsBusyPulse var(--ds-motion-normal) var(--ds-ease) infinite alternate;
+}
+
+@keyframes dsBusyPulse {
+from { transform: scale(.7); opacity: .35; }
+to { transform: scale(1); opacity: .9; }
+}
+.batchRunStatus[data-tone="good"] {
+  background: color-mix(in srgb, var(--ds-accent) 8%, var(--ds-surface));
+  border-color: color-mix(in srgb, var(--ds-accent) 28%, var(--ds-border));
+  color: var(--ds-text);
+}
+.batchRunStatus[data-tone="wait"] {
+  background: var(--ds-surface-subtle);
+  border-color: var(--ds-border-strong);
+  color: var(--ds-text);
+}
+.batchRunStatus[data-tone="bad"] {
+  background: var(--ds-danger-soft);
+  border-color: var(--ds-danger-border);
+  color: var(--ds-danger);
+}
+.emptyTaskNotice {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-style: dashed;
+  color: var(--ds-muted);
+}
+.batchList[hidden] {
+  display: none !important;
+}
+/* v1.1.54 — Apply now stays inside one focused dialog */
+.rbtActionIndicator {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  margin: 0 0 var(--ds-space-3);
+  border-radius: var(--ds-radius-pill);
+  font-size: var(--ds-font-xl);
+  font-weight: 900;
+  line-height: 1;
+}
+.rbtActionIndicator[hidden] {
+  display: none !important;
+}
+.rbtActionIndicator.loading {
+  background: color-mix(
+    in srgb,
+    var(--ds-accent) 10%,
+    var(--ds-surface)
+  );
+  color: var(--ds-accent);
+  animation:
+    rbtActionPulse 900ms var(--ds-ease) infinite;
+}
+.rbtActionIndicator.success {
+  background: color-mix(
+    in srgb,
+    var(--ds-accent) 12%,
+    var(--ds-surface)
+  );
+  color: var(--ds-accent);
+}
+.rbtActionIndicator.error {
+  background: var(--ds-danger-soft);
+  color: var(--ds-danger);
+  border: 1px solid var(--ds-danger-border);
+}
+.rbtModal.actionBusy .rbtModalEyebrow,
+.rbtModal.actionSuccess .rbtModalEyebrow {
+  color: var(--ds-accent);
+}
+.rbtModal.actionError .rbtModalEyebrow {
+  color: var(--ds-danger);
+}
+.rbtModal.actionBusy .rbtModalMessage,
+.rbtModal.actionSuccess .rbtModalMessage,
+.rbtModal.actionError .rbtModalMessage {
+  white-space: pre-line;
+}
+
+@keyframes rbtActionPulse {
+0%,
+100% {
+    opacity: .48;
+    transform: scale(.82);
+  }
+50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+.rbtActionIndicator.loading {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+/* v1.1.60 — Apply dialog Stop + neutral stopped result */
+.rbtActionIndicator.stopped {
+  background: var(--ds-surface-strong);
+  color: var(--ds-muted);
+  border: 1px solid var(--ds-border-strong);
+}
+.rbtModal.actionStopped .rbtModalEyebrow {
+  color: var(--ds-muted);
+}
+.rbtModal.actionBusy .rbtModalActions {
+  grid-template-columns: minmax(0, 1fr);
+}
+.rbtModal.actionBusy #rbtConfirmCancel {
+  width: 100%;
+}
+/* ============================================================
+   v1.1.63 — Apple-inspired visual refresh
+   ============================================================ */
+
+:root {
+  --ds-accent: #0071e3;
+  --ds-accent-hover: #0077ed;
+  --ds-accent-pressed: #005bb5;
+  --ds-bg: #f5f5f7;
+  --ds-surface: rgba(255, 255, 255, 0.76);
+  --ds-surface-raised: rgba(255, 255, 255, 0.88);
+  --ds-surface-subtle: rgba(255, 255, 255, 0.62);
+  --ds-surface-strong: #eef1f5;
+  --ds-text: #1d1d1f;
+  --ds-muted: #6e6e73;
+  --ds-border: rgba(29, 29, 31, 0.08);
+  --ds-border-strong: rgba(29, 29, 31, 0.14);
+  --ds-overlay: rgba(17, 24, 39, 0.28);
+  --ds-focus: rgba(0, 113, 227, 0.24);
+  --ds-radius-sm: 12px;
+  --ds-radius-md: 16px;
+  --ds-radius-lg: 22px;
+  --ds-radius-xl: 28px;
+  --ds-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03), 0 10px 24px rgba(15, 23, 42, 0.04);
+  --ds-shadow-md: 0 8px 30px rgba(15, 23, 42, 0.07);
+  --ds-shadow-lg: 0 20px 48px rgba(15, 23, 42, 0.12);
+
+  --bg: var(--ds-bg);
+  --card: var(--ds-surface-raised);
+  --text: var(--ds-text);
+  --muted: var(--ds-muted);
+  --border: var(--ds-border);
+  --accent: var(--ds-accent);
+  --accent2: var(--ds-accent-hover);
+  --shadow: var(--ds-shadow-md);
+}
+body.dark {
+  --ds-bg: #111214;
+  --ds-surface: rgba(28, 28, 30, 0.74);
+  --ds-surface-raised: rgba(28, 28, 30, 0.88);
+  --ds-surface-subtle: rgba(44, 44, 46, 0.72);
+  --ds-surface-strong: rgba(58, 58, 60, 0.9);
+  --ds-text: #f5f5f7;
+  --ds-muted: #a1a1a6;
+  --ds-border: rgba(255, 255, 255, 0.08);
+  --ds-border-strong: rgba(255, 255, 255, 0.16);
+  --ds-overlay: rgba(0, 0, 0, 0.52);
+  --ds-focus: rgba(10, 132, 255, 0.34);
+}
+body {
+  font-family: "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #fafafc 0%, #f3f4f7 100%);
+}
+body.dark {
+  background: linear-gradient(180deg, #121315 0%, #0d0e11 100%);
+}
+.topbar {
+  backdrop-filter: blur(22px) saturate(1.25);
+  -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  background: color-mix(in srgb, var(--ds-surface-raised) 82%, transparent);
+  border-bottom-color: var(--ds-border);
+}
+.brandLogo {
+  width: 34px;
+  height: 34px;
+  flex-basis: 34px;
+  border-radius: 11px;
+  box-shadow: 0 6px 18px rgba(0, 113, 227, 0.18);
+}
+.card,
+.welcomeDialog,
+.customizeDrawer,
+.rbtModal,
+.stickyActionBar,
+.customSelectMenu {
+  background: color-mix(in srgb, var(--ds-surface-raised) 90%, transparent);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  box-shadow: var(--ds-shadow-md);
+}
+.card,
+.welcomeDialog,
+.rbtModal {
+  border-color: var(--ds-border);
+  border-radius: var(--ds-radius-lg);
+}
+.summaryBox,
+.weekDayCard,
+.todayBox,
+.batchItem,
+.notice.subtle,
+.behaviorCard,
+.todayBehavior,
+.customizeSection,
+.welcomeStep {
+  background: color-mix(in srgb, var(--ds-surface) 92%, transparent);
+  border-color: transparent;
+  box-shadow: inset 0 0 0 1px var(--ds-border);
+}
+input,
+textarea,
+select,
+.customSelectTrigger {
+  min-height: 42px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--ds-surface-raised) 94%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+button {
+  min-height: 42px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.primary {
+  background: linear-gradient(180deg, #2493ff 0%, var(--ds-accent) 100%);
+  box-shadow: 0 10px 24px rgba(0, 113, 227, 0.24);
+}
+.secondary,
+.iconBtn,
+.navArrow,
+.weekNavArrow,
+.batchDeleteButton {
+  background: color-mix(in srgb, var(--ds-surface-raised) 92%, transparent);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+}
+.iconBtn,
+.batchDeleteButton {
+  border-radius: 999px;
+}
+#stickyStop,
+#autoBatchStop,
+button.dangerSoft {
+  background: color-mix(in srgb, var(--ds-danger-soft) 78%, var(--ds-surface-raised));
+}
+.notice,
+.batchRunStatus,
+.welcomeTip {
+  background: color-mix(in srgb, var(--ds-surface-raised) 92%, transparent);
+  border-color: var(--ds-border);
+}
+.batchRunStatus[data-tone="good"] {
+  background: color-mix(in srgb, var(--ds-accent) 8%, var(--ds-surface-raised));
+}
+.stickyActionBar {
+  border-radius: 24px;
+  border-color: var(--ds-border);
+}
+.topbar,
+.stickyActionBar,
+.customizeHeader,
+.customizeFooter {
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+}
+body.dark .card,
+body.dark .welcomeDialog,
+body.dark .rbtModal,
+body.dark .customizeDrawer,
+body.dark .customSelectMenu,
+body.dark .stickyActionBar,
+body.dark .summaryBox,
+body.dark .weekDayCard,
+body.dark .todayBox,
+body.dark .batchItem,
+body.dark .notice,
+body.dark .welcomeStep,
+body.dark .customizeSection,
+body.dark .behaviorCard,
+body.dark .todayBehavior {
+  background: color-mix(in srgb, var(--ds-surface-raised) 88%, transparent);
+  border-color: transparent;
+  box-shadow: inset 0 0 0 1px var(--ds-border);
+}
+body.dark input,
+body.dark textarea,
+body.dark select,
+body.dark .customSelectTrigger,
+body.dark .secondary,
+body.dark .iconBtn,
+body.dark .navArrow,
+body.dark .weekNavArrow,
+body.dark .batchDeleteButton {
+  background: color-mix(in srgb, var(--ds-surface-subtle) 88%, transparent);
+}
+/* ============================================================
+   v1.1.64 — Busy-RBT workflow pass
+   Fewer boxes,
+one glance client context,
+one run/stop surface.
+   ============================================================ */
+
+.srOnly {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.quickContextCard {
+  padding: 10px 12px;
+  border-radius: 18px;
+  box-shadow: none;
+}
+.quickContextMain {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+}
+.clientIdentity {
+  min-width: 0;
+}
+.clientName {
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -0.015em;
+}
+.clientHoursControl {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  color: var(--ds-muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+.clientHoursControl[hidden] {
+  display: none !important;
+}
+.clientHoursControl select {
+  width: auto;
+  min-width: 68px;
+  min-height: 32px;
+  height: 32px;
+  padding: 3px 24px 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 750;
+  background-color: var(--ds-surface-strong);
+}
+.quickConnectionBadge {
+  min-width: 0;
+  min-height: 28px;
+  padding: 4px 8px;
+  font-size: 9.5px;
+}
+/* Program title and selector duplicated the same information. The new Focus
+   defaults keep the selector and program-position indicator,
+saving vertical
+   space for the data the RBT actually needs. */
+body.ui-hide-program-title .behaviorCenter h2 {
+  display: none !important;
+}
+/* Task rows are glanceable: name,
+compact target,
+one tiny state pill. */
+.batchPanel {
+  margin-top: 10px;
+}
+.batchPanel > .notice.subtle,
+.batchPanel > .bindingText {
+  display: none !important;
+}
+.batchItem {
+  min-height: 54px;
+  padding: 9px 10px;
+  border-radius: 15px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ds-border);
+}
+.batchItemName {
+  font-size: 11.5px;
+  font-weight: 720;
+  line-height: 1.2;
+}
+.batchItemMeta {
+  margin-top: 3px;
+  color: var(--ds-muted);
+  font-size: 10px;
+  line-height: 1.2;
+}
+.batchItemError {
+  margin-top: 4px;
+  max-width: 100%;
+  color: var(--ds-danger);
+  font-size: 9.5px;
+  line-height: 1.25;
+}
+.batchStatus {
+  min-width: 0;
+  padding: 4px 7px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 760;
+}
+/* The run card is now only the progress line. Run/Stop already live in the
+   sticky action bar,
+so duplicating them here only slowed the workflow. */
+.progressOnlyCard {
+  margin: 2px 12px 84px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.progressOnlyCard .simplifiedProgress {
+  margin: 0;
+}
+.sleekProgressTrack,
+.progressOnlyCard .autoProgressTrack {
+  height: 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ds-text) 7%, transparent);
+  overflow: hidden;
+}
+.progressOnlyCard .autoProgressBar {
+  border-radius: inherit;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--ds-accent) 35%, transparent);
+}
+/* Sticky controls are the one permanent action surface. */
+.stickyActionBar {
+  padding: 6px;
+  gap: 4px;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--ds-surface-raised) 88%, transparent);
+}
+.stickyActionBar button {
+  min-height: 38px;
+  border-radius: 999px;
+  font-size: 10.5px;
+}
+#stickyAddBatch,
+#stickyAutoRun {
+  box-shadow: none;
+}
+#stickyAutoRun:not(:disabled) {
+  background: linear-gradient(180deg, #2493ff 0%, var(--ds-accent) 100%);
+  color: #fff;
+}
+/* Tight mode is intentionally dense but still finger-friendly. */
+body[data-ui-density="tight"] main {
+  gap: 8px;
+  padding: 8px 10px 78px;
+}
+body[data-ui-density="tight"] .card:not(.quickContextCard) {
+  padding: 12px;
+}
+body[data-ui-density="tight"] .field {
+  margin-top: 9px;
+}
+body[data-ui-density="tight"] .weekPlan {
+  gap: 5px;
+}
+
+@media (max-width: 360px) {
+.quickContextMain {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+.quickConnectionBadge {
+    display: none;
+  }
+}
+/* ============================================================
+   v1.1.67 — zero-friction Apple-inspired workflow
+   ============================================================ */
+
+/* One continuous workspace: remove card-inside-card visual noise. */
+#maladaptiveSection,
+#challengingSection,
+#replacementSection,
+#client2ReplacementSection {
+  padding: 4px 2px 8px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+main {
+  gap: 6px !important;
+  padding: 8px 10px 62px !important;
+}
+/* Keep only meaningful hierarchy; use spacing/dividers instead of rectangles. */
+.summaryGrid {
+  gap: 0 !important;
+  padding: 6px 0;
+  border-top: 1px solid var(--ds-border);
+  border-bottom: 1px solid var(--ds-border);
+}
+.summaryBox {
+  padding: 7px 10px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.summaryBox + .summaryBox {
+  border-left: 1px solid var(--ds-border) !important;
+}
+.weekPlan {
+  gap: 4px !important;
+}
+.weekDayCard {
+  min-width: 0;
+  padding: 7px 3px !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.weekDayCard.today,
+.weekDayCard.selectedDateCard {
+  background: color-mix(in srgb, var(--ds-accent) 11%, transparent) !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ds-accent) 28%, transparent) !important;
+}
+.todayBox {
+  margin-top: 8px !important;
+  padding: 10px 2px !important;
+  border: 0 !important;
+  border-top: 1px solid var(--ds-border) !important;
+  border-bottom: 1px solid var(--ds-border) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+/* The primary planning action is now the one-tap workflow. */
+.quickQueueButton {
+  min-height: 44px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, #1688f8 0%, #0071e3 100%) !important;
+  box-shadow: 0 6px 18px rgba(0, 113, 227, .20) !important;
+  letter-spacing: -.01em;
+}
+/* ---------------- Tasks: a list,
+never a stack of cards ---------------- */
+.batchPanel {
+  margin: 8px 0 0 !important;
+  padding: 8px 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--ds-border) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.batchHeader {
+  min-height: 26px;
+  margin: 0 0 2px !important;
+  padding: 0 2px;
+  align-items: center !important;
+}
+.batchHeader .eyebrow {
+  color: var(--ds-muted) !important;
+  font-size: 9.5px !important;
+  letter-spacing: .08em !important;
+}
+.batchHeader .pill {
+  min-height: 20px !important;
+  padding: 1px 5px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--ds-muted) !important;
+  font-size: 10px !important;
+}
+.batchList {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+.batchItem {
+  min-height: 40px !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 28px !important;
+  gap: 6px !important;
+  align-items: center !important;
+  padding: 7px 1px !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ds-border) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.batchItem:last-child {
+  border-bottom: 0 !important;
+}
+.batchItem[data-batch-status="verified"] {
+  opacity: .68;
+}
+.batchItem[data-batch-status="applying"] {
+  opacity: 1;
+}
+.batchItemMain,
+.batchItemNameRow {
+  min-width: 0;
+}
+.batchItemNameRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.batchItemName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ds-text) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+}
+/* No secondary success/target copy. Errors are the only text worth interrupting
+   an RBT with. */
+.batchItemMeta {
+  display: none !important;
+}
+.batchItemError {
+  margin: 3px 0 0 20px !important;
+  color: var(--ds-danger) !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}
+.batchStatus {
+  position: relative;
+  width: 12px !important;
+  min-width: 12px !important;
+  height: 12px !important;
+  min-height: 12px !important;
+  display: inline-grid !important;
+  place-items: center;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  color: var(--ds-muted) !important;
+  font-size: 0 !important;
+}
+.batchStatus.ready::before,
+.batchStatus.queued::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #8e8e93;
+  opacity: .55;
+}
+.batchStatus.applying::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid rgba(10,132,255,.24);
+  border-top-color: #0a84ff;
+  border-radius: 50%;
+  animation: rbtQueueSpin .58s linear infinite;
+}
+.batchStatus.verified::before {
+  content: "✓";
+  color: #30d158;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+.batchStatus.failed::before {
+  content: "!";
+  width: 12px;
+  height: 12px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #ff453a;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+@keyframes rbtQueueSpin {
+to { transform: rotate(360deg); }
+}
+.batchItemActions {
+  display: flex;
+  justify-content: flex-end;
+}
+.batchDeleteButton {
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 6px !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  color: var(--ds-muted) !important;
+  opacity: .38;
+  box-shadow: none !important;
+}
+.batchDeleteButton:hover:not(:disabled),
+.batchDeleteButton:focus-visible:not(:disabled) {
+  color: #ff453a !important;
+  background: rgba(255,69,58,.08) !important;
+  opacity: 1;
+  transform: none !important;
+}
+.batchPanel > .notice.subtle,
+.batchPanel > .bindingText {
+  display: none !important;
+}
+.batchPanel > .buttonRow {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin: 1px 0 0 !important;
+}
+.batchPanel > .buttonRow .secondary {
+  min-height: 26px !important;
+  padding: 2px 6px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--ds-muted) !important;
+  box-shadow: none !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+}
+.batchPanel > .buttonRow .secondary:hover:not(:disabled) {
+  color: #ff453a !important;
+  background: transparent !important;
+  transform: none !important;
+}
+/* The duplicate visual progress surface is intentionally gone. */
+.autoBatchCard,
+.progressOnlyCard,
+#autoProgressWrap {
+  display: none !important;
+}
+/* ---------------- One centered sticky command bar ---------------- */
+.stickyActionBar {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 8px !important;
+  width: min(calc(100% - 16px), 420px) !important;
+  transform: translateX(-50%) !important;
+  z-index: 12000 !important;
+  display: grid !important;
+  grid-template-columns: 44px minmax(92px, 1fr) 44px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  padding: 5px !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: 999px !important;
+  background: color-mix(in srgb, var(--ds-surface-raised) 88%, transparent) !important;
+  box-shadow: 0 10px 32px rgba(0,0,0,.16) !important;
+  backdrop-filter: blur(26px) saturate(1.35) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(1.35) !important;
+}
+.stickyActionBar[hidden] {
+  display: none !important;
+}
+#stickyAddBatch {
+  display: none !important;
+}
+.stickyActionBar button {
+  min-height: 38px !important;
+  height: 38px !important;
+  padding: 0 12px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+.stickyNavButton {
+  width: 38px !important;
+  min-width: 38px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: var(--ds-muted) !important;
+  font-size: 22px !important;
+  font-weight: 400 !important;
+}
+.stickyNavButton:hover:not(:disabled) {
+  background: var(--ds-surface-strong) !important;
+  color: var(--ds-text) !important;
+}
+.stickyRunButton {
+  background: #0071e3 !important;
+  color: #fff !important;
+}
+.stickyRunButton:disabled {
+  opacity: .42;
+}
+.stickyStopButton {
+  background: rgba(255,69,58,.12) !important;
+  color: #ff453a !important;
+}
+.stickyStopButton[hidden] {
+  display: none !important;
+}
+/* While working,
+remove navigation distractions. Show only Running + Stop. */
+.stickyActionBar.isRunning {
+  grid-template-columns: minmax(112px, 1fr) minmax(78px, .72fr) !important;
+}
+.stickyActionBar.isRunning #stickyPrevious,
+.stickyActionBar.isRunning #stickyNext {
+  display: none !important;
+}
+.stickyActionBar.isRunning #stickyAutoRun {
+  position: relative;
+  padding-left: 30px !important;
+  background: var(--ds-surface-strong) !important;
+  color: var(--ds-text) !important;
+  opacity: 1 !important;
+}
+.stickyActionBar.isRunning #stickyAutoRun::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin-top: -5px;
+  border: 1.5px solid rgba(10,132,255,.22);
+  border-top-color: #0a84ff;
+  border-radius: 50%;
+  animation: rbtQueueSpin .58s linear infinite;
+}
+.moreActions {
+  margin-top: 6px !important;
+  padding-top: 4px !important;
+}
+/* Dark palette follows Apple's neutral hierarchy rather than blue-black cards. */
+body.dark {
+  --ds-bg: #000000;
+  --ds-surface: rgba(28,28,30,.84);
+  --ds-surface-raised: rgba(28,28,30,.92);
+  --ds-surface-subtle: rgba(44,44,46,.72);
+  --ds-surface-strong: rgba(58,58,60,.86);
+  --ds-text: #f5f5f7;
+  --ds-muted: #8e8e93;
+  --ds-border: rgba(255,255,255,.09);
+  --ds-border-strong: rgba(255,255,255,.15);
+}
+body.dark,
+body.dark main {
+  background: #000 !important;
+}
+
+@media (max-width: 350px) {
+main {
+    padding-inline: 8px !important;
+  }
+.stickyActionBar {
+    width: calc(100% - 12px) !important;
+    bottom: 6px !important;
+  }
+}
+/* Single-item write remains available,
+but it is secondary to the high-volume
+   Add + Next → Run workflow. */
+.singleApplyAction {
+  width: auto !important;
+  min-height: 30px !important;
+  display: block !important;
+  margin: 3px auto 2px !important;
+  padding: 3px 9px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: var(--ds-accent) !important;
+  box-shadow: none !important;
+  font-size: 10px !important;
+  font-weight: 650 !important;
+}
+.singleApplyAction:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--ds-accent) 8%, transparent) !important;
+  transform: none !important;
+}
+/* ============================================================
+   v1.1.68 — Apple focus controls + searchable program comboboxes
+   ============================================================ */
+
+/* One permanent Focus template: no customization surface remains. */
+#customizeToggle,
+#customizeBackdrop,
+.customizeBackdrop,
+.customizeDrawer {
+  display: none !important;
+}
+/* Apple-style hours control: direct manipulation,
+no dropdown. */
+.quickContextMain {
+  grid-template-columns: minmax(0, 1fr) auto auto !important;
+}
+.clientHoursControl {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 0 !important;
+  color: var(--ds-muted) !important;
+  font-size: 10px !important;
+  font-weight: 650 !important;
+}
+.clientHoursControl[hidden] {
+  display: none !important;
+}
+.clientHoursLabel {
+  color: var(--ds-muted);
+  font-size: 9.5px;
+  font-weight: 650;
+}
+.clientHoursStepper {
+  height: 32px;
+  display: grid;
+  grid-template-columns: 28px 46px 28px;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--ds-border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ds-surface-strong) 82%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
+}
+.clientHoursStepButton {
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--ds-accent) !important;
+  box-shadow: none !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+}
+.clientHoursStepButton:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--ds-accent) 8%, transparent) !important;
+  transform: none !important;
+}
+.clientHoursInput {
+  width: 46px !important;
+  min-width: 46px !important;
+  min-height: 30px !important;
+  height: 30px !important;
+  padding: 0 2px !important;
+  border: 0 !important;
+  border-left: 1px solid var(--ds-border) !important;
+  border-right: 1px solid var(--ds-border) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--ds-text) !important;
+  box-shadow: none !important;
+  font-size: 11px !important;
+  font-weight: 750 !important;
+  text-align: center !important;
+  outline: none !important;
+}
+.clientHoursInput:focus {
+  background: color-mix(in srgb, var(--ds-accent) 8%, transparent) !important;
+  box-shadow: none !important;
+}
+/* Searchable Apple-style program picker. */
+.nativeProgramSelect {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+}
+.customProgramSelect {
+  position: relative !important;
+  width: 100% !important;
+  z-index: 1;
+}
+.customProgramSelect.open {
+  z-index: 80;
+}
+.customSelectTrigger {
+  width: 100% !important;
+  min-height: 42px !important;
+  display: grid !important;
+  grid-template-columns: 24px minmax(0,1fr) 30px !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 4px 5px 4px 9px !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: 14px !important;
+  background: color-mix(in srgb, var(--ds-surface-raised) 88%, transparent) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.42) !important;
+}
+.customProgramSelect.open .customSelectTrigger {
+  border-color: color-mix(in srgb, var(--ds-accent) 55%, var(--ds-border)) !important;
+  box-shadow: 0 0 0 3px var(--ds-focus) !important;
+}
+.customSelectNumber,
+.customSelectOptionNumber {
+  min-width: 22px !important;
+  width: 22px !important;
+  height: 22px !important;
+  padding: 0 !important;
+  border-radius: 7px !important;
+  background: color-mix(in srgb, var(--ds-accent) 9%, transparent) !important;
+  color: var(--ds-accent) !important;
+  font-size: 9.5px !important;
+  font-weight: 750 !important;
+}
+.customSelectSearch {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--ds-text) !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  font: inherit !important;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+  text-overflow: ellipsis;
+}
+.customSelectSearch::placeholder {
+  color: var(--ds-muted) !important;
+  opacity: .8;
+}
+.customSelectChevron {
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  display: grid !important;
+  place-items: center !important;
+  justify-self: end !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: color-mix(in srgb, var(--ds-surface-strong) 82%, transparent) !important;
+  color: var(--ds-muted) !important;
+  box-shadow: none !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+.customProgramSelect.open .customSelectChevron {
+  transform: rotate(180deg) !important;
+}
+.customSelectMenu {
+  display: none !important;
+  position: absolute !important;
+  top: calc(100% + 6px) !important;
+  left: 0 !important;
+  right: 0 !important;
+  max-height: min(390px, 62vh) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  padding: 6px !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: 18px !important;
+  background: color-mix(in srgb, var(--ds-surface-raised) 94%, transparent) !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.18) !important;
+  backdrop-filter: blur(28px) saturate(1.35) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(1.35) !important;
+}
+.customProgramSelect.open .customSelectMenu {
+  display: block !important;
+}
+.customProgramSelect.openUp .customSelectMenu {
+  top: auto !important;
+  bottom: calc(100% + 6px) !important;
+}
+.customSelectOptions {
+  display: block;
+}
+.customSelectOption {
+  width: 100% !important;
+  min-height: 40px !important;
+  display: grid !important;
+  grid-template-columns: 24px minmax(0,1fr) 20px !important;
+  gap: 7px !important;
+  align-items: center !important;
+  padding: 5px 8px !important;
+  border: 0 !important;
+  border-radius: 11px !important;
+  background: transparent !important;
+  color: var(--ds-text) !important;
+  box-shadow: none !important;
+  text-align: left !important;
+}
+.customSelectOption[hidden] {
+  display: none !important;
+}
+.customSelectOption:hover,
+.customSelectOption:focus-visible {
+  background: color-mix(in srgb, var(--ds-accent) 7%, var(--ds-surface-strong)) !important;
+  transform: none !important;
+}
+.customSelectOptionLabel {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.customSelectOptionCheck {
+  justify-self: end;
+  color: var(--ds-accent);
+  font-size: 12px;
+  font-weight: 800;
+  opacity: 0;
+}
+.customSelectOption.selected .customSelectOptionCheck {
+  opacity: 1;
+}
+.customSelectEmpty {
+  padding: 18px 10px;
+  color: var(--ds-muted);
+  font-size: 11px;
+  text-align: center;
+}
+.customSelectEmpty[hidden] {
+  display: none !important;
+}
+/* Direct day taps should feel immediate; no transition/repaint choreography. */
+.weekDayCard,
+.weekDayCard * {
+  transition: none !important;
+}
+.weekDayCard.selectedDateCard,
+.weekDayCard.today {
+  transform: none !important;
+}
+/* ============================================================
+   v1.1.69 — zero-friction working states + date/readability polish
+   ============================================================ */
+
+/* Connection state is intentionally invisible during normal work. Errors still
+   surface through the existing toast/status system when they matter. */
+#connectionBadge,
+.quickConnectionBadge {
+  display: none !important;
+}
+/* The fixed command bar overlays the workspace instead of reserving a blank
+   footer. scroll-padding keeps keyboard/programmatic focus comfortable. */
+html,
+body {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  min-height: 100% !important;
+}
+html {
+  scroll-padding-bottom: 58px;
+}
+main {
+  padding-bottom: 10px !important;
+  margin-bottom: 0 !important;
+}
+.weekDayCard .day {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.01em !important;
+}
+.weekDayCard .dayDate {
+  margin-top: 3px !important;
+  font-size: 11px !important;
+  font-weight: 650 !important;
+  line-height: 1 !important;
+  opacity: .72 !important;
+}
+.weekDayCard .num {
+  margin-top: 6px !important;
+}
+/* Running indicators are functional state,
+not decorative motion. Keep them
+   visibly looping for as long as a write/batch owns execution. */
+.batchStatus.applying::before,
+.stickyActionBar.isRunning #stickyAutoRun::before {
+  animation: rbtQueueSpin .62s linear infinite !important;
+  animation-play-state: running !important;
+  will-change: transform;
+}
+/* A completed task gets a paper-like drawn check rather than appearing as a
+   static glyph. */
+.batchStatus.verified::before {
+  display: none !important;
+  content: none !important;
+}
+.paperCheck {
+  width: 14px;
+  height: 12px;
+  overflow: visible;
+}
+.paperCheck path {
+  fill: none;
+  stroke: #30d158;
+  stroke-width: 2.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 22;
+  stroke-dashoffset: 22;
+  animation: paperCheckDraw .42s cubic-bezier(.22,.8,.28,1) forwards !important;
+}
+
+@keyframes paperCheckDraw {
+0% { stroke-dashoffset: 22; opacity: .35; }
+72% { stroke-dashoffset: 0; opacity: 1; }
+86% { transform: scale(1.08); transform-origin: center; }
+100% { stroke-dashoffset: 0; opacity: 1; transform: scale(1); }
+}
+/* Explicitly preserve functional progress motion even when generic animation
+   suppression exists elsewhere in the legacy stylesheet. */
+body.ui-no-motion .batchStatus.applying::before,
+body.ui-no-motion .stickyActionBar.isRunning #stickyAutoRun::before {
+  animation: rbtQueueSpin .62s linear infinite !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+.batchStatus.applying::before,
+.stickyActionBar.isRunning #stickyAutoRun::before {
+    animation: rbtQueueSpin .8s linear infinite !important;
+  }
+.paperCheck path {
+    animation: paperCheckDraw .34s ease-out forwards !important;
+  }
+}
+/* One-off entry is present but quiet. The high-volume path remains Add + Next. */
+.singleApplyAction {
+  margin: 5px auto 0 !important;
+  padding-inline: 12px !important;
+  color: var(--ds-muted) !important;
+  font-size: 10.5px !important;
+}
+.singleApplyAction::before {
+  content: "↳";
+  margin-right: 5px;
+  color: var(--ds-accent);
+  font-weight: 700;
+}
+.singleApplyAction:hover:not(:disabled),
+.singleApplyAction:focus-visible:not(:disabled) {
+  color: var(--ds-accent) !important;
+  background: color-mix(in srgb, var(--ds-accent) 7%, transparent) !important;
+}
+/* Apply-now / one-off modal uses the same continuous working ring. */
+.rbtActionIndicator.loading {
+  position: relative;
+  width: 34px !important;
+  height: 34px !important;
+  font-size: 0 !important;
+  background: transparent !important;
+  animation: none !important;
+}
+.rbtActionIndicator.loading::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  display: block;
+  border: 2px solid rgba(10,132,255,.18);
+  border-top-color: #0a84ff;
+  border-right-color: rgba(10,132,255,.55);
+  border-radius: 50%;
+  animation: rbtQueueSpin .62s linear infinite !important;
+  animation-play-state: running !important;
+}
+.paperCheck:not(.drawNow) path {
+  stroke-dashoffset: 0 !important;
+  animation: none !important;
+}
+.weekPlan {
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 3px !important;
+}
+.weekDayCard {
+  padding: 7px 1px !important;
+  min-width: 0 !important;
+}
+.weekDayCard .day {
+  font-size: 10px !important;
+  letter-spacing: -.02em !important;
+}
+.weekDayCard .dayDate {
+  font-size: 11px !important;
+}
+.weekDayCard .num {
+  font-size: 13px !important;
+}
+
+@media (max-width: 340px) {
+.weekNavigatorRow {
+    grid-template-columns: 26px minmax(0,1fr) 26px !important;
+    gap: 3px !important;
+  }
+.weekNavArrow {
+    width: 26px !important;
+  }
+.weekDayCard .day {
+    font-size: 9px !important;
+  }
+.weekDayCard .dayDate {
+    font-size: 10px !important;
+  }
+.weekDayCard .num {
+    font-size: 12px !important;
+  }
+}
+/* ============================================================
+   v1.1.73 — contextual one-off action
+   ============================================================ */
+.primaryActionCluster {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(92px, .78fr);
+  align-items: stretch;
+  gap: 8px;
+  margin-top: 12px;
+}
+.primaryActionCluster > .quickQueueButton {
+  width: 100%;
+  margin: 0 !important;
+  min-width: 0;
+}
+.oneOffSlot {
+  display: contents;
+}
+.oneOffSlot[hidden] {
+  display: none !important;
+}
+.oneOffAction {
+  width: 100%;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 9px 12px !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 999px !important;
+  background: rgba(118,118,128,.16) !important;
+  color: var(--ds-text) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04) !important;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+body:not(.dark) .oneOffAction {
+  border-color: rgba(60,60,67,.08) !important;
+  background: rgba(118,118,128,.10) !important;
+}
+.oneOffAction:hover:not(:disabled),
+.oneOffAction:focus-visible:not(:disabled) {
+  color: var(--ds-accent) !important;
+  background: color-mix(in srgb, var(--ds-accent) 9%, rgba(118,118,128,.14)) !important;
+}
+.primaryActionCluster.multiTaskMode {
+  grid-template-columns: 1fr;
+}
+.primaryActionCluster.multiTaskMode .oneOffAction,
+.primaryActionCluster.multiTaskMode .oneOffSlot {
+  display: none !important;
+}
+/* Retire the old detached one-off styling now that the choice is adjacent to
+   the primary action. */
+.singleApplyAction {
+  margin: 0 !important;
+}
+.singleApplyAction::before {
+  content: none !important;
+}
+
+@media (max-width: 330px) {
+.primaryActionCluster {
+    grid-template-columns: minmax(0, 1.45fr) minmax(82px, .72fr);
+    gap: 6px;
+  }
+.oneOffAction {
+    padding-inline: 9px !important;
+    font-size: 11.5px !important;
+  }
+}
+/* ============================================================
+   v1.1.76 — Apple control cleanup + borderless navigation
+   ============================================================ */
+
+
+.weekNavigatorHeader {
+  align-items: center !important;
+}
+.weekNavArrow {
+  appearance: none !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--ds-muted) !important;
+  transform: none !important;
+}
+.weekNavigatorRow {
+  align-items: center !important;
+}
+.weekNavArrow {
+  align-self: center !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  line-height: 0 !important;
+  font-size: 0 !important;
+}
+.weekNavArrow::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+}
+.weekNavPrev::before {
+  transform: translateX(2px) rotate(-135deg);
+}
+.weekNavNext::before {
+  transform: translateX(-2px) rotate(45deg);
+}
+.weekNavArrow:hover:not(:disabled),
+.weekNavArrow:focus-visible:not(:disabled) {
+  background: transparent !important;
+  color: var(--ds-text) !important;
+}
+.weekNavigatorViewport .weekPlan,
+.weekPlan.weekSlideOutLeft,
+.weekPlan.weekSlideOutRight,
+.weekPlan.weekSlideInRight,
+.weekPlan.weekSlideInLeft {
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+/* Program picker: index numbers are plain typography,
+never blue badges. */
+.customSelectTrigger {
+  grid-template-columns: auto minmax(0,1fr) 30px !important;
+}
+.customSelectNumber,
+.customSelectOptionNumber {
+  min-width: 18px !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--ds-text) !important;
+  box-shadow: none !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  text-align: right !important;
+  opacity: .72;
+}
+.customSelectOption {
+  grid-template-columns: 20px minmax(0,1fr) 20px !important;
+}
+.customSelectOption.selected {
+  background: color-mix(in srgb, var(--ds-text) 5%, transparent) !important;
+  color: var(--ds-text) !important;
+}
+.customSelectOption:hover,
+.customSelectOption:focus-visible {
+  background: color-mix(in srgb, var(--ds-text) 7%, transparent) !important;
+}
+/* Bottom controls: no enclosing gray capsule. Run owns the visual hierarchy. */
+.stickyActionBar {
+  width: min(calc(100% - 18px), 390px) !important;
+  grid-template-columns: 48px minmax(104px, 174px) 48px !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  pointer-events: none !important;
+}
+.stickyActionBar button {
+  pointer-events: auto !important;
+}
+.stickyNavButton {
+  position: relative !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--ds-muted) !important;
+  font-size: 0 !important;
+  box-shadow: none !important;
+}
+.stickyNavButton::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+}
+#stickyPrevious::before {
+  transform: translate(-35%,-50%) rotate(-135deg);
+}
+#stickyNext::before {
+  transform: translate(-65%,-50%) rotate(45deg);
+}
+.stickyNavButton:hover:not(:disabled),
+.stickyNavButton:focus-visible:not(:disabled) {
+  background: transparent !important;
+  color: var(--ds-text) !important;
+}
+.stickyRunButton {
+  min-height: 42px !important;
+  height: 42px !important;
+  border-radius: 999px !important;
+  background: #0a84ff !important;
+  color: #fff !important;
+  box-shadow: 0 7px 22px rgba(10,132,255,.24) !important;
+}
+.stickyActionBar.isRunning {
+  grid-template-columns: minmax(118px, 170px) minmax(82px, 112px) !important;
+}
+.stickyActionBar.isRunning #stickyAutoRun {
+  border-radius: 999px !important;
+  background: color-mix(in srgb, var(--ds-surface-raised) 92%, transparent) !important;
+  box-shadow: 0 6px 22px rgba(0,0,0,.12) !important;
+  backdrop-filter: blur(24px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.3) !important;
+}
+.stickyStopButton {
+  border-radius: 999px !important;
+  box-shadow: 0 6px 22px rgba(0,0,0,.10) !important;
+  backdrop-filter: blur(24px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.3) !important;
+}
+
+@media (max-width: 340px) {
+.stickyActionBar {
+    grid-template-columns: 42px minmax(96px, 156px) 42px !important;
+  }
+}
+.weekNavigatorHeader {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* Remove every legacy glyph from bottom navigation; only our drawn chevrons remain. */
+#stickyPrevious,
+#stickyNext {
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: -9999px !important;
+  overflow: hidden !important;
+}
+#stickyPrevious::before,
+#stickyNext::before {
+  text-indent: 0 !important;
+}
+.weekNavigatorHeader {
+  position: relative !important;
+  overflow: visible !important;
+  isolation: isolate;
+}
+@media (max-width: 330px) {
+}
+/* Compact selected-day summary and remove the accidental double divider. */
+.todayBox {
+  margin-top: 5px !important;
+  padding: 7px 2px 6px !important;
+  border-bottom: 0 !important;
+}
+.todayBox .label {
+  margin-bottom: 3px !important;
+  font-size: 10.5px !important;
+}
+.todayBox .bigNumber {
+  font-size: 24px !important;
+  line-height: 1.05 !important;
+}
+.batchPanel {
+  margin-top: 4px !important;
+  padding-top: 6px !important;
+  border-top: 1px solid var(--ds-border) !important;
+}
+/* Exactly one separator between the selected-day summary and Tasks. */
+.todayBox {
+  border-bottom: 0 !important;
+}
+.batchPanel {
+  border-top: 1px solid var(--ds-border) !important;
+}
+.weekPlan {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.weekPlan[data-date-count="1"] .weekDayCard,
+.weekPlan[data-date-count="2"] .weekDayCard,
+.weekPlan[data-date-count="3"] .weekDayCard,
+.weekPlan[data-date-count="4"] .weekDayCard {
+  max-width: none !important;
+}
+/* DOM order is Previous,
+Month title {
+  display: grid !important;
+  grid-template-columns: 28px minmax(0,1fr) 28px !important;
+  align-items: center !important;
+  gap: 4px !important;
+  min-height: 32px !important;
+  margin: 0 0 4px !important;
+}
+
+/* ============================================================
+   v1.1.93 — client gate + page-reset inventory refresh
+   ============================================================ */
+.clientGate {
+  position: fixed;
+  inset: 58px 0 0;
+  z-index: 18000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #f5f5f7;
+}
+
+.clientGate[hidden] {
+  display: none !important;
+}
+
+body.dark .clientGate {
+  background: #111214;
+}
+
+.clientGatePanel {
+  width: min(100%, 320px);
+  text-align: center;
+  padding: 30px 24px 28px;
+  border-radius: 28px;
+  background: #ffffff;
+  color: #1d1d1f;
+  box-shadow: 0 18px 50px rgba(0,0,0,.10);
+  border: 1px solid rgba(0,0,0,.06);
+}
+
+body.dark .clientGatePanel {
+  background: #1c1c1e;
+  color: #f5f5f7;
+  border-color: rgba(255,255,255,.08);
+  box-shadow: 0 22px 60px rgba(0,0,0,.32);
+}
+
+.clientGateIcon {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #e9f3ff;
+}
+
+body.dark .clientGateIcon {
+  background: rgba(10,132,255,.16);
+}
+
+.clientGateHead {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  width: 15px;
+  height: 15px;
+  transform: translateX(-50%);
+  border: 2px solid #0071e3;
+  border-radius: 50%;
+}
+
+.clientGateShoulders {
+  position: absolute;
+  left: 50%;
+  bottom: 11px;
+  width: 28px;
+  height: 16px;
+  transform: translateX(-50%);
+  border: 2px solid #0071e3;
+  border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+}
+
+.clientGatePanel h2 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -.02em;
+  font-weight: 750;
+}
+
+.clientGatePanel p {
+  margin: 8px auto 0;
+  max-width: 25ch;
+  color: #6e6e73;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+body.dark .clientGatePanel p,
+body.dark .clientGateHint {
+  color: #a1a1a6;
+}
+
+.clientGateHint {
+  margin-top: 14px;
+  color: #86868b;
+  font-size: 12px;
+}
+
+body.clientGateOpen #stickyActionBar {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* v1.1.96 — selected-day summary removed. Only surface a compact preview
+   when an existing Office Puzzle value is actually being changed. */
+.planChangePreview {
+  padding: 8px 2px 12px;
+  margin: 0;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.planChangePreview[hidden] {
+  display: none !important;
+}
+.planChangeDate {
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--ds-text-secondary, #8e8e93);
+  margin-bottom: 3px;
+}
+.planChangeValues {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ds-text, #f5f5f7);
+}
+.planChangeValues strong {
+  font: inherit;
+  color: var(--ds-accent, #0a84ff);
+}
+.planChangeArrow {
+  color: var(--ds-text-secondary, #8e8e93);
+  font-weight: 500;
+}

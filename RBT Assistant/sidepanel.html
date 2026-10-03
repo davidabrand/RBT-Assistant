@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RBT Assistant</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="styles/design-system.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brandLockup">
+      <img src="assets/brand-logo.png" alt="RBT Assistant logo" class="brandLogo" />
+      <div class="brandText">
+        <div class="eyebrow">OFFICE PUZZLE</div>
+        <h1>RBT Assistant</h1>
+      </div>
+    </div>
+    <div class="topActions">
+<button id="themeToggle" class="iconBtn" title="Toggle dark mode" aria-label="Toggle dark mode">☾</button>
+      <button id="refreshContext" class="iconBtn" title="Clear inputs & refresh client" aria-label="Clear inputs and refresh client">↻</button>
+    </div>
+  </header>
+
+
+
+  <div id="welcomeBackdrop" class="welcomeBackdrop" hidden>
+    <section
+      id="welcomeDialog"
+      class="welcomeDialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="welcomeTitle"
+      aria-describedby="welcomeDescription"
+      tabindex="-1"
+    >
+      <div class="welcomeBrand">
+        <img src="assets/brand-logo.png" alt="" class="welcomeLogo" />
+        <div>
+          <div class="eyebrow">WELCOME</div>
+          <div class="welcomeProduct">RBT Assistant</div>
+        </div>
+      </div>
+
+      <h2 id="welcomeTitle">Less clicking. More time with your client.</h2>
+      <p id="welcomeDescription" class="welcomeLead">
+        Keep your Office Puzzle workflow in one place — plan, apply, or queue tasks without jumping between tools.
+      </p>
+
+      <div class="welcomeSteps" aria-label="How it works">
+        <div class="welcomeStep">
+          <span class="welcomeStepNumber">1</span>
+          <div>
+            <strong>Choose a program</strong>
+            <p>Open the Office Puzzle page you are working on and select the loaded behavior or skill.</p>
+          </div>
+        </div>
+        <div class="welcomeStep">
+          <span class="welcomeStepNumber">2</span>
+          <div>
+            <strong>Create the plan</strong>
+            <p>Set the weekly target and press Add + Next. The assistant plans, queues, and moves forward in one tap.</p>
+          </div>
+        </div>
+        <div class="welcomeStep">
+          <span class="welcomeStepNumber">3</span>
+          <div>
+            <strong>Queue and move on</strong>
+            <p>Use Add + Next to build the queue quickly, then press Run once.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="welcomeTip">
+        Planning and queueing do not change Office Puzzle. Writes happen only when you Run or choose Write once.
+      </div>
+
+      <div class="welcomeActions">
+        <button id="welcomeSkip" type="button" class="secondary">Skip</button>
+        <button id="welcomeStart" type="button" class="primary">Start using RBT Assistant</button>
+      </div>
+
+      <div class="welcomeFootnote">
+        Independent third-party assistant. Follow your employer and BCBA documentation policies.
+      </div>
+    </section>
+  </div>
+
+
+  <div id="clientGate" class="clientGate" hidden aria-live="polite" aria-atomic="true">
+    <section class="clientGatePanel" role="status" aria-labelledby="clientGateTitle">
+      <div class="clientGateIcon" aria-hidden="true">
+        <span class="clientGateHead"></span>
+        <span class="clientGateShoulders"></span>
+      </div>
+      <h2 id="clientGateTitle">Select a client</h2>
+      <p id="clientGateMessage">Choose a client in Office Puzzle to continue.</p>
+      <div class="clientGateHint">RBT Assistant will reconnect automatically.</div>
+    </section>
+  </div>
+
+  <main id="appMain" aria-busy="true">
+    <section class="card contextCard quickContextCard">
+      <div class="quickContextMain">
+        <div class="clientIdentity">
+          <div class="eyebrow">CLIENT</div>
+          <div id="clientLabel" class="value clientName">Loading…</div>
+        </div>
+
+        <div id="clientHoursControl" class="clientHoursControl" hidden>
+          <span class="clientHoursLabel">Hours</span>
+          <div class="clientHoursStepper" role="group" aria-label="Hours worked for selected date">
+            <button id="clientHoursMinus" type="button" class="clientHoursStepButton" aria-label="Decrease hours">−</button>
+            <input id="clientHoursInput" class="clientHoursInput" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" aria-label="Hours worked" value="5" />
+            <button id="clientHoursPlus" type="button" class="clientHoursStepButton" aria-label="Increase hours">+</button>
+          </div>
+        </div>
+
+        <span id="connectionBadge" class="badge quickConnectionBadge" hidden aria-hidden="true"></span>
+      </div>
+      <div id="pageType" class="muted small uiHiddenContextField">—</div>
+      <div id="autoProfileStatus" class="autoProfileStatus learning uiInternalDiscoveryStatus" hidden>
+        Auto profile: learning this client from Office Puzzle…
+      </div>
+    </section>
+
+    <section id="startupSkeleton" class="card startupSkeleton" aria-label="Loading RBT Assistant" role="status" aria-live="polite">
+      <div class="skeletonLine skeletonEyebrow"></div>
+      <div class="skeletonLine skeletonTitle"></div>
+      <div class="skeletonLine skeletonField"></div>
+      <div class="skeletonLine skeletonButton"></div>
+      <div class="skeletonGrid" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="skeletonLine skeletonCard"></div>
+    </section>
+
+    <section class="card" id="maladaptiveSection" hidden>
+      <div class="sectionTitle">
+        <div>
+          <div class="eyebrow">MALADAPTIVE BEHAVIORS</div>
+</div>
+        <span id="detectedCount" class="pill uiInternalDiagnostic">0/?</span>
+      </div>
+<div id="scanSummary" class="notice uiRedundantStatus uiInternalDiagnostic">
+        Auto discovery runs when the page loads. Use Discover / update to rescan.
+      </div>
+
+      <div class="behaviorNav listOnly">
+<div class="behaviorCenter">
+          <div class="programProgress" aria-label="Program position">
+            <div class="programProgressTop">
+              <span class="programProgressLabel">PROGRAM</span>
+              <span id="behaviorPosition" class="programProgressCount">01 / 12</span>
+            </div>
+            <div class="programProgressTrack" aria-hidden="true">
+              <span id="behaviorPositionBar" class="programProgressFill"></span>
+            </div>
+          </div>
+          <h2 id="behaviorName">Select a program</h2>
+</div>
+</div>
+
+      <label class="field">
+        <span>Select behavior</span>
+        <select id="behaviorSelect"></select>
+      </label>
+
+      <label class="field">
+        <span>Weekly target</span>
+        <input id="weeklyTarget" type="number" min="0" step="1" placeholder="Enter weekly total" />
+      </label>
+
+      <div class="primaryActionCluster" data-batch-kind="client1Behaviors">
+        <button id="generatePlan" class="primary quickQueueButton" title="Plan this program, add it to Tasks, and move to the next program">Add + Next</button>
+        <button id="applyCount" class="oneOffAction" title="Plan and write only this program without adding it to Tasks">Run once</button>
+      </div>
+
+      <div class="summaryGrid">
+        <div class="summaryBox">
+          <div class="label">Recorded this week</div>
+          <div id="previousActualTotal" class="summaryNumber">—</div>
+        </div>
+        <div class="summaryBox">
+          <div class="label">Still to plan</div>
+          <div id="remainingWeekly" class="summaryNumber">—</div>
+        </div>
+      </div>
+
+      <div id="weekPlan" class="weekPlan"></div>
+      <div id="behaviorChangePreview" class="planChangePreview" hidden></div>
+      <div class="uiInternalOnly" hidden>
+        <span id="todayPlanned">—</span>
+        <span id="selectedDate">—</span>
+      </div>
+
+      <div id="behaviorStatus" class="notice uiRedundantStatus uiInternalDiagnostic">
+        Select a behavior to see its table status.
+      </div>
+
+<div class="batchPanel">
+        <div class="batchHeader">
+          <div>
+            <div class="eyebrow">TASKS</div>
+          </div>
+          <span id="batchBehaviorCount" class="pill">0/?</span>
+        </div>
+        <div id="batchBehaviorList" class="batchList"></div>
+        <div id="batchBehaviorProgress" class="notice subtle">No tasks yet — press Add when you're ready.</div>
+        <div class="buttonRow">
+          <button id="batchClearBehaviors" class="secondary">Clear</button>
+          <button id="batchApplyBehaviors" class="primary" hidden aria-hidden="true">Apply batch</button>
+        </div>
+      </div>
+
+      <details class="moreActions">
+        <summary>More actions</summary>
+        <div class="moreActionsBody">
+          <button id="clearBehaviorColumn" class="secondary dangerSoft full">Clear current date</button>
+          <div class="bindingText">Removes the recorded Office Puzzle entry for this program and date.</div>
+        </div>
+      </details>
+</section>
+
+
+    <section class="card" id="challengingSection" hidden>
+      <div class="sectionTitle">
+        <div>
+          <div class="eyebrow">BEHAVIORS</div>
+</div>
+        <span id="challengingMethodBadge" class="pill">—</span>
+      </div>
+
+      <div class="behaviorNav listOnly">
+<div class="behaviorCenter">
+          <div class="programProgress" aria-label="Program position">
+            <div class="programProgressTop">
+              <span class="programProgressLabel">PROGRAM</span>
+              <span id="challengingPosition" class="programProgressCount">01 / 14</span>
+            </div>
+            <div class="programProgressTrack" aria-hidden="true">
+              <span id="challengingPositionBar" class="programProgressFill"></span>
+            </div>
+          </div>
+          <h2 id="challengingName">Rejection of social interaction</h2>
+        </div>
+</div>
+
+      <label class="field">
+        <span>Behavior</span>
+        <select id="challengingSelect"></select>
+      </label>
+<div id="challengingScanSummary" class="notice uiRedundantStatus uiInternalDiagnostic">
+        Programs and tables are discovered automatically.
+      </div>
+
+      <div class="summaryGrid">
+        <div class="summaryBox">
+          <div class="label">Selected date</div>
+          <div id="challengingSelectedDate" class="summaryNumber smallSummary">—</div>
+        </div>
+        <div class="summaryBox">
+          <div class="label">Currently recorded</div>
+          <div id="challengingCurrentValue" class="summaryNumber">—</div>
+        </div>
+      </div>
+
+      <label class="field">
+        <span id="challengingWeeklyTargetLabel">Weekly target</span>
+        <input id="challengingWeeklyTarget" type="number" min="0" step="1" placeholder="Enter weekly target" />
+      </label>
+
+      <label class="field uiInternalOnly" id="challengingHoursField" hidden aria-hidden="true">
+        <input id="challengingHours" type="number" min="0.5" max="12" step="0.5" value="5" tabindex="-1" />
+        <div id="challengingHoursSaved" hidden></div>
+        <div id="challengingHoursHint" hidden></div>
+      </label>
+
+      <div class="primaryActionCluster" data-batch-kind="client2Challenging">
+        <button id="generateChallengingPlan" class="primary quickQueueButton" title="Plan this program, add it to Tasks, and move to the next program">Add + Next</button>
+        <div id="challengingFrequencyApply" class="oneOffSlot" hidden>
+          <button id="applyChallengingCount" class="oneOffAction" title="Plan and write only this program without adding it to Tasks">Run once</button>
+        </div>
+        <div id="challengingIntervalApply" class="oneOffSlot" hidden>
+          <button id="reviewChallengingIntervals" class="oneOffAction" title="Plan and write only this program without adding it to Tasks">Run once</button>
+          <div id="challengingReviewPanel" class="uiInternalOnly" hidden></div>
+        </div>
+      </div>
+
+      <div class="summaryGrid">
+        <div class="summaryBox">
+          <div id="challengingPreviousLabel" class="label">Recorded this week</div>
+          <div id="challengingPreviousValue" class="summaryNumber">—</div>
+        </div>
+        <div class="summaryBox">
+          <div id="challengingRemainingLabel" class="label">Remaining</div>
+          <div id="challengingRemainingValue" class="summaryNumber">—</div>
+        </div>
+      </div>
+
+      <div id="challengingWeekPlan" class="weekPlan"></div>
+      <div id="challengingChangePreview" class="planChangePreview" hidden></div>
+      <div class="uiInternalOnly" hidden>
+        <span id="challengingTodayLabel"></span>
+        <span id="challengingTodayPlanned">—</span>
+      </div>
+
+      <div class="uiInternalOnly" hidden>
+        <span id="challengingTodayHoursWrap">
+          <span id="challengingTodayHours">5h</span>
+        </span>
+      </div>
+
+      <div id="challengingStatus" class="notice uiRedundantStatus uiInternalDiagnostic">
+        Scan the current behavior table first.
+      </div>
+      <div class="uiInternalOnly" hidden>
+        <div id="challengingPlannedPattern" class="trialGrid planGrid"></div>
+      </div>
+
+      <div class="batchPanel">
+        <div class="batchHeader">
+          <div>
+            <div class="eyebrow">TASKS</div>
+          </div>
+          <span id="batchChallengingCount" class="pill">0/?</span>
+        </div>
+        <div id="batchChallengingList" class="batchList"></div>
+        <div id="batchChallengingProgress" class="notice subtle">No tasks yet — press Add when you're ready.</div>
+        <div class="buttonRow">
+          <button id="batchClearChallenging" class="secondary">Clear</button>
+          <button id="batchApplyChallenging" class="primary" hidden aria-hidden="true">Apply batch</button>
+        </div>
+      </div>
+
+      <details class="moreActions">
+        <summary>More actions</summary>
+        <div class="moreActionsBody">
+          <button id="clearChallengingColumn" class="secondary dangerSoft full">Clear current date</button>
+          <div class="bindingText">Removes the recorded Office Puzzle entry for this program and date.</div>
+        </div>
+      </details>
+</section>
+
+
+    <section class="card" id="client2ReplacementSection" hidden>
+      <div class="sectionTitle">
+        <div>
+          <div class="eyebrow">REPLACEMENTS / SKILLS</div>
+</div>
+        <span id="client2ReplacementDetected" class="pill uiInternalDiagnostic">—</span>
+      </div>
+
+      <div class="behaviorNav listOnly">
+<div class="behaviorCenter">
+          <div class="programProgress" aria-label="Program position">
+            <div class="programProgressTop">
+              <span class="programProgressLabel">PROGRAM</span>
+              <span id="client2ReplacementPosition" class="programProgressCount">01 / 13</span>
+            </div>
+            <div class="programProgressTrack" aria-hidden="true">
+              <span id="client2ReplacementPositionBar" class="programProgressFill"></span>
+            </div>
+          </div>
+          <h2 id="client2ReplacementName">Follow directions/instructions and task compliance</h2>
+        </div>
+</div>
+
+      <label class="field">
+        <span>Program</span>
+        <select id="client2ReplacementSelect"></select>
+      </label>
+<div id="client2ReplacementScanSummary" class="notice uiRedundantStatus uiInternalDiagnostic">
+        Programs and tables are discovered automatically.
+      </div>
+
+      <label class="field">
+        <span>Weekly target %</span>
+        <input id="client2ReplacementWeeklyTarget" type="number" min="0" max="100" step="1" placeholder="Enter weekly target %" />
+      </label>
+
+      <div class="primaryActionCluster" data-batch-kind="client2Replacements">
+        <button id="generateClient2ReplacementPlan" class="primary quickQueueButton" title="Plan this program, add it to Tasks, and move to the next program">Add + Next</button>
+        <button id="reviewClient2Replacement" class="oneOffAction" title="Plan and write only this program without adding it to Tasks">Run once</button>
+      </div>
+
+      <div class="summaryGrid">
+        <div class="summaryBox">
+          <div class="label">Recorded this week</div>
+          <div id="client2ReplacementPrevious" class="summaryNumber">—</div>
+        </div>
+        <div class="summaryBox">
+          <div class="label">Still to plan</div>
+          <div id="client2ReplacementRemaining" class="summaryNumber">—</div>
+        </div>
+      </div>
+
+      <div id="client2ReplacementWeekPlan" class="weekPlan"></div>
+      <div id="client2ReplacementChangePreview" class="planChangePreview" hidden></div>
+      <div class="uiInternalOnly" hidden>
+        <span id="client2ReplacementTodayPlanned">—</span>
+        <span id="client2ReplacementCurrentAverage">—</span>
+      </div>
+
+      <div class="uiInternalOnly" hidden>
+        <div id="client2ReplacementPlannedPattern" class="trialGrid planGrid"></div>
+      </div>
+
+      <div id="client2ReplacementStatus" class="notice uiRedundantStatus uiInternalDiagnostic">
+        Scan the current replacement table first.
+      </div>
+      <div id="client2ReplacementReviewPanel" class="uiInternalOnly" hidden></div>
+
+      <div class="batchPanel">
+        <div class="batchHeader">
+          <div>
+            <div class="eyebrow">TASKS</div>
+          </div>
+          <span id="batchClient2ReplacementCount" class="pill">0/?</span>
+        </div>
+        <div class="bindingText">
+          Add this plan to Tasks when you're ready, then press Run.
+        </div>
+        <div id="batchClient2ReplacementList" class="batchList"></div>
+        <div id="batchClient2ReplacementProgress" class="notice subtle">No tasks yet — press Add when you're ready.</div>
+        <div class="buttonRow">
+          <button id="batchClearClient2Replacement" class="secondary">Clear</button>
+          <button id="batchApplyClient2Replacement" class="primary" hidden aria-hidden="true">Apply batch</button>
+        </div>
+      </div>
+
+      <details class="moreActions">
+        <summary>More actions</summary>
+        <div class="moreActionsBody">
+          <button id="clearClient2ReplacementColumn" class="secondary dangerSoft full">Clear current date</button>
+          <div class="bindingText">Removes the recorded Office Puzzle entry for this program and date.</div>
+        </div>
+      </details>
+</section>
+
+
+    <section class="card" id="replacementSection" hidden>
+      <div class="sectionTitle">
+        <div>
+          <div class="eyebrow">REPLACEMENTS / SKILLS</div>
+</div>
+        <span id="replacementDetectedCount" class="pill uiInternalDiagnostic">0/?</span>
+      </div>
+<div id="replacementScanSummary" class="notice uiRedundantStatus uiInternalDiagnostic">
+        Auto discovery runs when the page loads. Use Discover / update to rescan.
+      </div>
+
+      <div class="behaviorNav listOnly">
+<div class="behaviorCenter">
+          <div class="programProgress" aria-label="Program position">
+            <div class="programProgressTop">
+              <span class="programProgressLabel">PROGRAM</span>
+              <span id="replacementPosition" class="programProgressCount">01 / 16</span>
+            </div>
+            <div class="programProgressTrack" aria-hidden="true">
+              <span id="replacementPositionBar" class="programProgressFill"></span>
+            </div>
+          </div>
+          <h2 id="replacementName">Requests attention appropriately</h2>
+</div>
+</div>
+
+      <label class="field">
+        <span>Select replacement / acquisition program</span>
+        <select id="replacementSelect"></select>
+      </label>
+
+      <label class="field">
+        <span>Weekly target %</span>
+        <input id="replacementWeeklyTarget" type="number" min="0" max="100" step="1" placeholder="e.g. 54" />
+      </label>
+
+      <div class="primaryActionCluster" data-batch-kind="client1Replacements">
+        <button id="generateReplacementPlan" class="primary quickQueueButton" title="Plan this program, add it to Tasks, and move to the next program">Add + Next</button>
+        <button id="applyReplacementTrials" class="oneOffAction" title="Plan and write only this program without adding it to Tasks">Run once</button>
+      </div>
+
+      <div class="summaryGrid">
+        <div class="summaryBox">
+          <div class="label">Weekly goal</div>
+          <div id="replacementAchievableTarget" class="summaryNumber">—</div>
+        </div>
+        <div class="summaryBox">
+          <div class="label">Recorded this week</div>
+          <div id="replacementPreviousSuccesses" class="summaryNumber">—</div>
+        </div>
+      </div>
+
+      <div class="summaryGrid">
+        <div class="summaryBox">
+          <div class="label">Still to plan</div>
+          <div id="replacementRemainingSuccesses" class="summaryNumber">—</div>
+        </div>
+        <div class="summaryBox">
+          <div class="label">Selected date</div>
+          <div id="replacementSelectedDate" class="summaryNumber smallSummary">—</div>
+        </div>
+      </div>
+
+      <div id="replacementWeekPlan" class="weekPlan"></div>
+      <div id="replacementChangePreview" class="planChangePreview" hidden></div>
+      <div class="uiInternalOnly" hidden>
+        <span id="replacementTodayPlanned">—</span>
+        <span id="replacementCurrentAverage">—</span>
+      </div>
+
+      <div class="uiInternalOnly" hidden>
+        <div id="plannedTrialPattern" class="trialGrid planGrid"></div>
+      </div>
+
+      <div id="replacementStatus" class="notice uiRedundantStatus uiInternalDiagnostic">
+        Select a program to see its table status.
+      </div>
+      <div id="replacementReviewPanel" class="uiInternalOnly" hidden></div>
+
+      <div class="batchPanel">
+        <div class="batchHeader">
+          <div>
+            <div class="eyebrow">TASKS</div>
+          </div>
+          <span id="batchReplacementCount" class="pill">0/?</span>
+        </div>
+        <div class="bindingText">
+          Add this plan to Tasks when you're ready, then press Run.
+        </div>
+        <div id="batchReplacementList" class="batchList"></div>
+        <div id="batchReplacementProgress" class="notice subtle">No tasks yet — press Add when you're ready.</div>
+        <div class="buttonRow">
+          <button id="batchClearReplacement" class="secondary">Clear</button>
+          <button id="batchApplyReplacement" class="primary" hidden aria-hidden="true">Apply batch</button>
+        </div>
+      </div>
+
+      <details class="moreActions">
+        <summary>More actions</summary>
+        <div class="moreActionsBody">
+          <button id="clearReplacementColumn" class="secondary dangerSoft full">Clear current date</button>
+          <div class="bindingText">Removes the recorded Office Puzzle entry for this program and date.</div>
+        </div>
+      </details>
+</section>
+
+    
+
+
+    <section class="autoBatchCard uiInternalOnly" hidden aria-hidden="true">
+      <span id="autoBatchBadge">Off</span>
+      <div id="autoBatchStatus" role="status" aria-live="polite">Ready to run.</div>
+      <div id="autoProgressWrap">
+        <span id="autoProgressLabel">0 / 0 completed</span>
+        <span id="autoProgressPercent">0%</span>
+        <div id="autoProgressBar"></div>
+      </div>
+      <button id="autoBatchStop" hidden disabled>Stop</button>
+      <button id="autoBatchStart" hidden>Run</button>
+    </section>
+
+    
+
+    
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+  </main>
+
+  <script src="scripts/sidepanel.js"></script>
+
+  <div class="stickyActionBar" id="stickyActionBar">
+    <button id="stickyAddBatch" hidden aria-hidden="true" tabindex="-1">Add</button>
+    <button id="stickyPrevious" class="stickyNavButton" title="Previous program · Alt + P" aria-label="Previous program"></button>
+    <button
+      id="stickyAutoRun"
+      class="stickyRunButton"
+      title="Run all tasks · Alt + R"
+      aria-label="Run all tasks"
+    >Run</button>
+    <button
+      id="stickyStop"
+      class="stickyStopButton"
+      title="Stop the active write or batch"
+      aria-label="Stop the active write or batch"
+      disabled
+      hidden
+    >Stop</button>
+    <button id="stickyNext" class="stickyNavButton" title="Next program · Alt + N" aria-label="Next program"></button>
+  </div>
+
+
+  <div class="rbtModalBackdrop" id="rbtConfirmModal" hidden>
+    <div class="rbtModal" role="dialog" aria-modal="true" aria-labelledby="rbtConfirmTitle" aria-describedby="rbtConfirmMessage" tabindex="-1">
+      <div class="rbtModalEyebrow" id="rbtModalEyebrow">CONFIRM</div>
+      <div id="rbtActionIndicator" class="rbtActionIndicator" hidden aria-hidden="true"></div>
+      <h3 id="rbtConfirmTitle">Confirm action</h3>
+      <div class="rbtModalMessage" id="rbtConfirmMessage" aria-live="polite"></div>
+      <div class="rbtModalActions">
+        <button id="rbtConfirmCancel">Cancel</button>
+        <button id="rbtConfirmOk" class="primary">Continue</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

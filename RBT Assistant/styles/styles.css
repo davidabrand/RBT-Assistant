@@ -1,0 +1,2393 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f5f8;
+  --card: #ffffff;
+  --text: #1d2230;
+  --muted: #747b8d;
+  --border: #e1e4eb;
+  --accent: #2563eb;
+  --accent2: #1d4ed8;
+  --ok: #16835d;
+  --warn: #9f6a00;
+  --danger: #b33a3a;
+  --shadow: 0 8px 24px rgba(27, 32, 55, .08);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 18px 14px;
+  background: rgba(244,245,248,.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+h1 { margin: 1px 0 0; font-size: 21px; }
+h2 { margin: 2px 0 0; font-size: 17px; }
+.brandLockup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.brandLogo {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 10px;
+  display: block;
+  filter: drop-shadow(0 3px 8px rgba(26, 86, 219, .18));
+}
+.brandText {
+  min-width: 0;
+}
+.brandText h1 {
+  white-space: nowrap;
+}
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.eyebrow { font-size: 10px; font-weight: 800; letter-spacing: .12em; color: var(--accent); }
+main { padding: 14px; display: grid; gap: 12px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: var(--shadow);
+}
+.compact { padding: 12px 14px; }
+.sectionTitle,
+.row { display: flex; align-items: center; gap: 10px; }
+.between { justify-content: space-between; }
+.label,
+.field > span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.value { font-size: 15px; font-weight: 800; }
+.small { font-size: 12px; }
+.muted { color: var(--muted); }
+.contextCard .muted { margin-top: 7px; }
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 11px;
+  font: inherit;
+  color: var(--text);
+  background: #fbfbfd;
+  outline: none;
+}
+input:focus,
+textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,.13); }
+textarea { resize: vertical; line-height: 1.45; }
+.field { display: block; margin-top: 13px; }
+.dayChecks { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 7px 0 12px; }
+.dayToggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 2px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fafbfc;
+  font-size: 11px;
+  cursor: pointer;
+}
+.dayToggle input { width: auto; }
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+button:disabled { opacity: .5; cursor: not-allowed; }
+.primary { background: var(--accent); color: #fff; }
+.primary:hover { background: var(--accent2); }
+.secondary { background: #eff0f5; color: #303647; }
+.iconBtn { background: #fff; border: 1px solid var(--border); padding: 7px 10px; font-size: 18px; }
+.buttonRow { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.full { width: 100%; margin-top: 10px; }
+.pill,
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 800;
+}
+.pill { background: #eaf2ff; color: var(--accent); }
+.badge { background: #fff1d7; color: var(--warn); }
+.badge.ok { background: #dff7ee; color: var(--ok); }
+.badge.bad { background: #ffe7e7; color: var(--danger); }
+.badge.neutral { background: #eef0f4; color: var(--muted); }
+.planList {
+  margin: 10px 0 0;
+  border-top: 1px solid var(--border);
+}
+.planRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 2px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.planRow .num { font-weight: 900; font-size: 15px; }
+.doneTag { font-size: 10px; color: var(--ok); font-weight: 800; }
+.todayRow { background: #eef5ff; margin: 0 -7px; padding-left: 7px; padding-right: 7px; border-radius: 7px; }
+.todayBox {
+  margin-top: 12px;
+  background: #f4f8ff;
+  border: 1px solid #cfe0ff;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bigNumber { font-size: 28px; font-weight: 900; color: var(--accent); }
+.smallBtn { padding: 8px 10px; font-size: 11px; }
+.notice {
+  margin-top: 10px;
+  padding: 9px 10px;
+  border-radius: 9px;
+  background: #fff8e8;
+  color: #775318;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.bindingText { margin-top: 8px; color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 14px;
+  right: 14px;
+  padding: 11px 12px;
+  color: #fff;
+  background: #242a38;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  font-size: 12px;
+  z-index: 10000;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  line-height: 1.45;
+}
+.topSpace { margin-top: 14px; }
+.behaviorsList,
+.todayRows { display: grid; gap: 9px; margin-top: 12px; }
+.behaviorCard,
+.todayBehavior {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  background: #fbfbfd;
+}
+.behaviorHeader {
+  display: grid;
+  grid-template-columns: 1fr 92px 34px;
+  gap: 7px;
+  align-items: center;
+}
+.behaviorHeader input { padding: 8px 9px; }
+.removeBtn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: #f3f0f0;
+  color: #8a4141;
+}
+.miniPlan {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-top: 8px;
+}
+.miniDay {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 3px;
+  text-align: center;
+  background: #fff;
+}
+.miniDay .d { font-size: 9px; color: var(--muted); font-weight: 800; }
+.miniDay .v { margin-top: 2px; font-size: 14px; font-weight: 900; }
+.miniDay.todayMini { border-color: #a9c8ff; background: #edf5ff; }
+.todayBehavior {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px 90px;
+  gap: 8px;
+  align-items: center;
+}
+.todayBehavior .name { font-size: 12px; font-weight: 800; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.todayBehavior .planned { font-size: 11px; color: var(--muted); }
+.todayBehavior input { padding: 8px; }
+.fieldStatus { font-size: 9px; margin-top: 3px; color: var(--muted); overflow-wrap: anywhere; }
+.behaviorNav {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  gap: 8px;
+  align-items: center;
+  margin-top: 10px;
+}
+.behaviorCenter {
+  text-align: center;
+  min-width: 0;
+}
+.behaviorCenter h2 {
+  margin: 4px 0 6px;
+  font-size: 17px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.navArrow {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  background: #efeff5;
+  color: #2d3344;
+  font-size: 20px;
+}
+.matchBadge {
+  display: inline-flex;
+  padding: 4px 7px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 800;
+  background: #fff0da;
+  color: #875b00;
+}
+.matchBadge.ok {
+  background: #dff7ee;
+  color: #16835d;
+}
+.weekPlan {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+.weekDayCard {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 4px;
+  text-align: center;
+  background: #fbfbfd;
+}
+.weekDayCard.today {
+  border-color: #9fc2ff;
+  background: #eef5ff;
+}
+.weekDayCard .day {
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 800;
+}
+.weekDayCard .num {
+  margin-top: 3px;
+  font-size: 16px;
+  font-weight: 900;
+}
+.rightAlign { text-align: right; }
+.notice.subtle {
+  background: #f6f7fa;
+  color: #5e6574;
+}
+select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 11px;
+  font: inherit;
+  color: var(--text);
+  background: #fbfbfd;
+  outline: none;
+}
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.13);
+}
+.detectedStrip {
+  margin-top: 10px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: #f6f7fa;
+  font-size: 12px;
+}
+.labelInline {
+  color: var(--muted);
+  font-weight: 700;
+  margin-right: 4px;
+}
+.summaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+.summaryBox {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  background: #f8f9fb;
+}
+.summaryNumber {
+  font-size: 20px;
+  font-weight: 900;
+}
+.weekDayCard .actualMini {
+  margin-top: 3px;
+  font-size: 8px;
+  color: var(--muted);
+  line-height: 1.2;
+}
+/* ---------- v0.8.3 theme controls ---------- */
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.scanTop {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/* Smooth but subtle theme transition */
+body,
+.card,
+input,
+textarea,
+select,
+button,
+.notice,
+.weekDayCard,
+.summaryBox,
+.detectedStrip,
+.todayBox,
+.topbar {
+  transition:
+    background-color .18s ease,
+    color .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease;
+}
+/* Dark theme overrides */
+body.dark {
+  --bg: #111318;
+  --card: #191c23;
+  --text: #f3f5f8;
+  --muted: #9da5b3;
+  --border: #303641;
+  --accent: #60a5fa;
+  background: #111318;
+  color: #f3f5f8;
+}
+body.dark .topbar {
+  background: #151820;
+  border-bottom-color: #2a303a;
+}
+body.dark .card {
+  background: #191c23;
+  border-color: #303641;
+  box-shadow: 0 6px 18px rgba(0,0,0,.22);
+}
+body.dark input,
+body.dark textarea,
+body.dark select {
+  background: #12151b;
+  color: #f3f5f8;
+  border-color: #343b47;
+}
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #707989;
+}
+body.dark .iconBtn,
+body.dark .navArrow,
+body.dark .secondary {
+  background: #252a34;
+  color: #eef1f6;
+  border-color: #383f4b;
+}
+body.dark .iconBtn:hover,
+body.dark .navArrow:hover,
+body.dark .secondary:hover {
+  background: #2e3440;
+}
+body.dark .weekDayCard,
+body.dark .summaryBox,
+body.dark .detectedStrip,
+body.dark .notice.subtle {
+  background: #14171d;
+  border-color: #303641;
+  color: #d7dce4;
+}
+body.dark .weekDayCard.today {
+  background: #16233a;
+  border-color: #3b82f6;
+}
+body.dark .todayBox {
+  background: #171a21;
+  border-color: #303641;
+}
+body.dark .matchBadge {
+  background: #3b3020;
+  color: #f0c36c;
+}
+body.dark .matchBadge.ok,
+body.dark .badge.ok {
+  background: #173a30;
+  color: #6ed5b1;
+}
+body.dark .badge.bad {
+  background: #442426;
+  color: #ff9a9f;
+}
+body.dark .badge.neutral {
+  background: #292e38;
+  color: #c4cad4;
+}
+body.dark .pill {
+  background: #292e38;
+  color: #dce1e8;
+}
+body.dark .bindingText,
+body.dark .muted,
+body.dark .small,
+body.dark .label,
+body.dark .labelInline,
+body.dark .weekDayCard .day,
+body.dark .weekDayCard .actualMini {
+  color: #9da5b3;
+}
+/* ---------- v0.9 Replacement / Acquisition ---------- */
+.trialGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+.trialChip {
+  min-height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  background: #f7f8fb;
+  color: var(--text);
+}
+button.trialChip {
+  cursor: pointer;
+}
+.trialChip.plus {
+  background: #e8f8f1;
+  color: #14704f;
+  border-color: #b9e8d6;
+}
+.trialChip.minus {
+  background: #fff0f0;
+  color: #9b343b;
+  border-color: #f2c5c8;
+}
+.trialChip.blank {
+  background: #f5f6f8;
+  color: var(--muted);
+}
+.planGrid .trialChip {
+  cursor: default;
+}
+.smallSummary {
+  font-size: 12px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+body.dark .trialChip {
+  background: #15191f;
+  border-color: #303641;
+  color: #dfe4ec;
+}
+body.dark .trialChip.plus {
+  background: #173a30;
+  border-color: #285848;
+  color: #77dfba;
+}
+body.dark .trialChip.minus {
+  background: #442426;
+  border-color: #643237;
+  color: #ff9fa4;
+}
+body.dark .trialChip.blank {
+  background: #20252d;
+  color: #8f98a7;
+}
+/* ---------- v0.9.3 compact review flow ---------- */
+.reviewPanel {
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #f8f9fb;
+}
+.reviewPanelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.smallIcon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  padding: 0;
+  font-size: 18px;
+}
+body.dark .reviewPanel {
+  background: #14171d;
+  border-color: #303641;
+}
+/* ---------- v0.10 Client 2 Challenging Behaviors ---------- */
+#challengingSection .field strong {
+  font-weight: 800;
+}
+#challengingSection .trialGrid {
+  margin-bottom: 8px;
+}
+#challengingHours {
+  max-width: 180px;
+}
+body.dark #challengingSection .notice.subtle {
+  background: #14171d;
+}
+/* v0.11.6 — Frequency hours control is visible but intentionally disabled */
+.disabledField {
+  opacity: 0.48;
+}
+.disabledField input,
+input:disabled {
+  cursor: not-allowed;
+}
+body.dark .disabledField {
+  opacity: 0.5;
+}
+/* v0.12.0 batch review layer. Table writers are unchanged. */
+.batchAddButton {
+  margin-top: 8px;
+}
+.batchPanel {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid rgba(127, 127, 127, 0.24);
+  border-radius: 14px;
+  background: rgba(127, 127, 127, 0.055);
+}
+.batchHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.batchList {
+  display: grid;
+  gap: 7px;
+  margin: 12px 0;
+}
+.batchItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 10px;
+  border: 1px solid rgba(127, 127, 127, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+}
+body.dark .batchItem {
+  background: rgba(255, 255, 255, 0.035);
+}
+.batchItemName {
+  font-weight: 650;
+  line-height: 1.25;
+}
+.batchItemMeta {
+  margin-top: 3px;
+  font-size: 11px;
+  opacity: 0.75;
+}
+.batchStatus {
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+}
+.batchStatus.queued { opacity: 0.7; }
+.batchStatus.applying { opacity: 0.85; }
+.batchStatus.verified { color: #1b7f57; }
+.batchStatus.failed { color: #a33b3b; }
+.batchReviewButtons {
+  flex-wrap: wrap;
+}
+.batchReviewButtons > button {
+  flex: 1 1 120px;
+}
+.autoBatchCard.running { box-shadow: 0 0 0 1px rgba(50,140,95,.18) inset; }
+.autoBatchCard.stoppedOnError { box-shadow: 0 0 0 1px rgba(170,60,60,.18) inset; }
+.batchStatus.ready { color: #1b7f57; }
+/* ---------- v0.13.0 compact control-panel UI ---------- */
+.topbar {
+  padding: 10px 12px 9px;
+}
+h1 { font-size: 18px; }
+h2 { font-size: 15px; }
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: .10em;
+}
+main {
+  padding: 9px;
+  gap: 8px;
+}
+.card {
+  border-radius: 12px;
+  padding: 11px;
+  box-shadow: 0 4px 14px rgba(27,32,55,.055);
+}
+.contextCard {
+  padding: 9px 11px;
+}
+.contextCard .muted {
+  margin-top: 3px;
+}
+.sectionTitle {
+  align-items: flex-start;
+}
+.field {
+  margin-top: 9px;
+}
+.label,
+.field > span {
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+input,
+textarea,
+select {
+  border-radius: 8px;
+  padding: 8px 9px;
+  font-size: 13px;
+}
+button {
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+.iconBtn {
+  padding: 5px 8px;
+  font-size: 16px;
+}
+.buttonRow {
+  gap: 6px;
+  margin-top: 7px;
+}
+.full {
+  margin-top: 7px;
+}
+.scanTop {
+  margin-top: 7px;
+  margin-bottom: 6px;
+}
+.pill,
+.badge {
+  padding: 4px 7px;
+  font-size: 9px;
+}
+.notice {
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-radius: 7px;
+  font-size: 10px;
+  line-height: 1.25;
+}
+.bindingText {
+  margin-top: 5px;
+  font-size: 10px;
+  line-height: 1.25;
+}
+.behaviorNav {
+  grid-template-columns: 34px 1fr 34px;
+  gap: 6px;
+  margin-top: 7px;
+}
+.navArrow {
+  width: 34px;
+  height: 34px;
+  font-size: 17px;
+}
+.behaviorCenter h2 {
+  margin: 2px 0 4px;
+  font-size: 15px;
+}
+.matchBadge {
+  padding: 3px 6px;
+  font-size: 8px;
+}
+.summaryGrid {
+  gap: 6px;
+  margin-top: 8px;
+}
+.summaryBox {
+  border-radius: 8px;
+  padding: 7px 8px;
+}
+.summaryNumber {
+  font-size: 17px;
+}
+.todayBox {
+  margin-top: 8px;
+  border-radius: 9px;
+  padding: 8px 9px;
+}
+.bigNumber {
+  font-size: 23px;
+}
+.weekPlan {
+  gap: 4px;
+  margin-top: 8px;
+}
+.weekDayCard {
+  border-radius: 8px;
+  padding: 6px 2px;
+}
+.weekDayCard .num {
+  font-size: 14px;
+}
+.trialGrid {
+  gap: 4px;
+  margin-top: 6px;
+}
+.trialChip {
+  min-height: 32px;
+  border-radius: 7px;
+  font-size: 10px;
+}
+.reviewPanel {
+  margin-top: 7px;
+  padding: 9px;
+  border-radius: 9px;
+}
+.reviewPanelHeader {
+  margin-bottom: 5px;
+}
+.batchAddButton {
+  margin-top: 6px;
+}
+.batchPanel {
+  margin-top: 10px;
+  padding: 9px;
+  border-radius: 10px;
+}
+.batchHeader {
+  margin-bottom: 4px;
+}
+.batchList {
+  gap: 4px;
+  margin: 7px 0;
+  max-height: 170px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+.batchItem {
+  gap: 7px;
+  padding: 6px 7px;
+  border-radius: 7px;
+}
+.batchItemName {
+  font-size: 11px;
+  line-height: 1.2;
+}
+.batchItemMeta {
+  margin-top: 2px;
+  font-size: 9px;
+}
+.batchStatus {
+  font-size: 9px;
+}
+.autoBatchCard {
+  padding: 9px 11px;
+}
+.autoBatchCard .sectionTitle {
+  align-items: center;
+}
+.autoBatchCard .notice {
+  margin-top: 5px;
+}
+.autoBatchCard .buttonRow {
+  margin-top: 6px;
+}
+#challengingHours {
+  max-width: none;
+}
+.notice.subtle {
+  border: 1px solid var(--border);
+}
+.batchList::-webkit-scrollbar {
+  width: 6px;
+}
+.batchList::-webkit-scrollbar-thumb {
+  background: rgba(127,127,127,.30);
+  border-radius: 10px;
+}
+/* v0.13.1 — Auto Run now sits below the visible page Batch Review. */
+.autoBatchCard {
+  margin-top: 0;
+}
+/* Sync is automatic; the header button is only a small fallback. */
+#refreshContext {
+  opacity: .72;
+}
+#refreshContext:hover {
+  opacity: 1;
+}
+/* v0.13.2 — scanning is automatic; manual scan controls are fallbacks. */
+#rescanAll,
+#scanReplacements,
+#scanChallenging,
+#scanClient2Replacement {
+  opacity: .78;
+}
+#rescanAll:hover,
+#scanReplacements:hover,
+#scanChallenging:hover,
+#scanClient2Replacement:hover {
+  opacity: 1;
+}
+/* ---------- v0.13.3 selector simplification ---------- */
+.behaviorNav.listOnly {
+  display: block;
+}
+.behaviorNav.listOnly .behaviorCenter {
+  width: 100%;
+}
+.behaviorNav.listOnly select {
+  width: 100%;
+}
+/* ---------- Auto Run progress ---------- */
+.autoProgressWrap {
+  margin-top: 8px;
+}
+.autoProgressMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.autoProgressTrack {
+  width: 100%;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(127,127,127,.16);
+  overflow: hidden;
+}
+.autoProgressBar {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: currentColor;
+  color: #2e7d65;
+  transition: width .22s ease;
+}
+body.dark .autoProgressBar {
+  color: #69c4a4;
+}
+/* ---------- Sticky action bar ---------- */
+body {
+  padding-bottom: 66px;
+}
+.stickyActionBar {
+  position: fixed;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 9999;
+  display: grid;
+  grid-template-columns: 1.18fr .82fr .72fr 1fr .68fr;
+  gap: 6px;
+  padding: 7px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--card) 94%, transparent);
+  box-shadow: 0 8px 28px rgba(0,0,0,.16);
+  backdrop-filter: blur(14px);
+}
+.stickyActionBar[hidden] {
+  display: none !important;
+}
+.stickyActionBar button {
+  min-width: 0;
+  white-space: nowrap;
+  padding: 9px 7px;
+  font-size: 11px;
+}
+.stickyActionBar .accent {
+  font-weight: 700;
+}
+/* v1.0.8 — in-extension confirmation modal */
+.rbtModalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(8,12,20,.64);
+  backdrop-filter: blur(6px);
+}
+.rbtModalBackdrop[hidden] { display:none !important; }
+.rbtModal {
+  width: min(360px,100%);
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.30);
+}
+.rbtModalEyebrow {
+  font-size: 9px;
+  letter-spacing: .12em;
+  font-weight: 800;
+  color: var(--muted);
+}
+.rbtModal h3 { margin:5px 0 8px; font-size:17px; }
+.rbtModalMessage {
+  font-size:12px;
+  line-height:1.45;
+  color:var(--muted);
+  white-space:pre-wrap;
+}
+.rbtModalActions {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:14px;
+}
+/* v1.0.9 completed Auto Run state */
+.autoBatchCard:not(.stoppedOnError) #autoBatchBadge {
+  transition: background .15s ease, color .15s ease;
+}
+.stickyActionBar .dangerAction {
+  font-weight: 750;
+  border-color: #d65b5b;
+  color: #a92f2f;
+  background: #fff1f1;
+}
+body.dark .stickyActionBar .dangerAction {
+  color: #ffb5b5;
+  background: rgba(160,45,45,.20);
+  border-color: #a84b4b;
+}
+.stickyActionBar .dangerAction:disabled {
+  opacity: .38;
+}
+/* v1.0.14 — batch auto-follow visual cue */
+.batchItem[data-batch-status="applying"] {
+  scroll-margin-block: 72px;
+}
+/* v1.0.17 — clickable Office Puzzle date navigator */
+.weekNavigatorShell { margin-top: 12px; }
+.weekNavigatorHeader {
+  position: relative;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.weekNavigatorRange {
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .02em;
+  color: var(--muted);
+}
+.weekNavigatorRow {
+  display: grid;
+  grid-template-columns: 28px minmax(0,1fr) 28px;
+  align-items: center;
+  gap: 5px;
+}
+.weekNavigatorViewport {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 11px;
+}
+.weekNavigatorViewport .weekPlan {
+  margin-top: 0;
+  transition: transform 150ms cubic-bezier(.2,.8,.2,1), opacity 150ms ease;
+  will-change: transform, opacity;
+}
+.weekNavArrow {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: #fbfbfd;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
+.weekNavArrow {
+  width: 28px;
+  height: 42px;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+.weekNavArrow:hover:not(:disabled) {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.weekNavArrow:disabled {
+  opacity: .28;
+  cursor: not-allowed;
+}
+.weekDayCard[data-date] {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease, opacity 120ms ease;
+}
+.weekDayCard[data-date]:hover:not(.dateDisabled) {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+.weekDayCard.selectedDateCard { box-shadow: inset 0 0 0 1px var(--accent); }
+.weekDayCard.dateDisabled {
+  opacity: .30;
+  filter: grayscale(.5);
+  cursor: not-allowed;
+}
+.weekDayCard .dayDate {
+  display: block;
+  margin-top: 1px;
+  font-size: 8px;
+  font-weight: 700;
+  opacity: .8;
+}
+.weekPlan.weekSlideOutLeft { transform: translateX(-22px); opacity: 0; }
+.weekPlan.weekSlideOutRight { transform: translateX(22px); opacity: 0; }
+.weekPlan.weekSlideInRight { transform: translateX(22px); opacity: 0; }
+.weekPlan.weekSlideInLeft { transform: translateX(-22px); opacity: 0; }
+body.dark .weekNavArrow { background: #202128; }
+/* v1.0.18 — Stop is visibly live during any active writer */
+#stickyStop:not(:disabled),
+#autoBatchStop:not(:disabled) {
+  cursor: pointer;
+}
+/* v1.0.19 — explicit destructive column clear */
+button.dangerSoft {
+  border-color: rgba(190, 62, 62, .45);
+  color: #a53a3a;
+  background: rgba(190, 62, 62, .06);
+}
+button.dangerSoft:hover:not(:disabled) {
+  border-color: rgba(190, 62, 62, .8);
+  background: rgba(190, 62, 62, .11);
+}
+body.dark button.dangerSoft {
+  color: #ff9a9a;
+  background: rgba(190, 62, 62, .10);
+}
+/* v1.0.21 — simplified inline +/- review */
+.inlineReviewEditor {
+  margin-top: 8px;
+  padding-top: 2px;
+}
+.inlineReviewEditor[hidden] {
+  display: none !important;
+}
+.inlineReviewEditor .trialGrid {
+  margin-bottom: 8px;
+}
+.reviewConfirmedAction {
+  border-color: rgba(34, 147, 94, .58) !important;
+  background: rgba(34, 147, 94, .10) !important;
+}
+body.dark .reviewConfirmedAction {
+  background: rgba(34, 147, 94, .18) !important;
+}
+/* v1.1.0 — automatic learned client profile */
+.autoProfileStatus {
+  margin-top: 8px;
+  padding: 7px 9px;
+  border-radius: 9px;
+  font-size: 10px;
+  line-height: 1.35;
+  border: 1px solid var(--border);
+}
+.autoProfileStatus.learning {
+  color: var(--muted);
+  background: rgba(120,128,150,.06);
+}
+.autoProfileStatus.learned {
+  color: #126849;
+  background: rgba(34,147,94,.08);
+  border-color: rgba(34,147,94,.24);
+}
+body.dark .autoProfileStatus.learned {
+  color: #8fe0b7;
+  background: rgba(34,147,94,.13);
+}
+/* v1.1.7 — uncluttered normal workflow
+   These elements stay in the DOM for internal status updates/debugging,
+but the top Auto profile status is the single visible discovery indicator. */
+.uiRedundantStatus {
+  display: none !important;
+}
+/* v1.1.8 — compact sticky action bar for narrow side-panel widths */
+.stickyActionBar {
+  display: grid;
+  grid-template-columns:
+    minmax(82px, 1.2fr)
+    minmax(54px, .72fr)
+    minmax(54px, .72fr)
+    minmax(72px, 1fr)
+    minmax(52px, .68fr);
+  gap: 5px;
+  align-items: stretch;
+}
+.stickyActionBar button {
+  min-width: 0;
+  width: 100%;
+  padding: 9px 7px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  border-radius: 10px;
+}
+#stickyPrevious,
+#stickyNext {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* At very narrow widths, make every control compact while preserving
+   readable labels and consistent typography. */
+@media (max-width: 360px) {
+.stickyActionBar {
+    grid-template-columns:
+      minmax(74px, 1.14fr)
+      minmax(50px, .72fr)
+      minmax(50px, .72fr)
+      minmax(66px, .96fr)
+      minmax(48px, .66fr);
+    gap: 4px;
+  }
+.stickyActionBar button {
+    padding: 8px 5px;
+    font-size: 10.5px;
+    border-radius: 9px;
+  }
+}
+
+@media (max-width: 330px) {
+.stickyActionBar {
+    grid-template-columns:
+      minmax(68px, 1.12fr)
+      minmax(46px, .72fr)
+      minmax(46px, .72fr)
+      minmax(60px, .92fr)
+      minmax(44px, .64fr);
+    gap: 3px;
+  }
+.stickyActionBar button {
+    padding: 8px 4px;
+    font-size: 10px;
+  }
+}
+/* The visible Safe Mode card was removed in v1.1.8.
+   Internal write safeguards remain active in code. */
+
+
+/* v1.1.9 — explicit required-input validation */
+#toast.validationToast {
+  background: rgba(160, 42, 42, .96);
+  color: #fff;
+  border-color: rgba(255,255,255,.15);
+}
+.validationFieldError {
+  outline: 2px solid rgba(210, 64, 64, .72) !important;
+  outline-offset: 1px;
+  animation: rbtValidationNudge .22s ease-in-out 0s 2 alternate;
+}
+
+@keyframes rbtValidationNudge {
+from { transform: translateX(0); }
+to { transform: translateX(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+.validationFieldError {
+    animation: none;
+  }
+}
+/* v1.1.11 — simplified current-client card */
+.uiHiddenContextField {
+  display: none !important;
+}
+.contextCard #clientLabel {
+  margin-top: 0;
+}
+
+@media (max-width: 380px) {
+.topbar { padding: 14px 14px 12px; }
+.brandLockup { gap: 8px; }
+.brandLogo { width: 30px; height: 30px; flex-basis: 30px; border-radius: 8px; }
+h1 { font-size: 18px; }
+.iconBtn { padding: 7px 9px; font-size: 16px; }
+}
+/* v1.1.17 — blue brand palette */
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI Variable", "Segoe UI", sans-serif;
+}
+h1,
+h2,
+button,
+.value,
+.summaryNumber,
+.bigNumber {
+  letter-spacing: -0.015em;
+}
+.primary {
+  box-shadow: 0 4px 12px rgba(37, 99, 235, .14);
+}
+.primary:hover {
+  box-shadow: 0 5px 14px rgba(29, 78, 216, .18);
+}
+body.dark .primary {
+  background: #2563eb;
+}
+body.dark .primary:hover {
+  background: #1d4ed8;
+}
+body.dark input:focus,
+body.dark textarea:focus,
+body.dark select:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96,165,250,.14);
+}
+/* v1.1.21 — unified custom program dropdowns */
+.nativeProgramSelect {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+}
+.customProgramSelect {
+  position: relative;
+  width: 100%;
+  margin-top: 0;
+  font: inherit;
+  z-index: 1;
+}
+.customProgramSelect.open {
+  z-index: 40;
+}
+.customSelectTrigger {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 25px minmax(0,1fr) 18px;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 10px;
+  border: 1px solid #cbd9eb;
+  border-radius: 10px;
+  background: #fbfdff;
+  color: var(--text);
+  box-shadow: none;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+.customSelectTrigger:hover {
+  border-color: #9db9df;
+  background: #f6faff;
+}
+.customProgramSelect.open .customSelectTrigger {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
+.customSelectNumber,
+.customSelectOptionNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 21px;
+  padding: 0 5px;
+  border-radius: 7px;
+  background: #e8f1ff;
+  color: #1d5fc4;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+}
+.customSelectValue {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.customSelectChevron {
+  justify-self: end;
+  color: #6e7e94;
+  font-size: 15px;
+  line-height: 1;
+  transform: translateY(-1px);
+  transition: transform .14s ease;
+}
+.customProgramSelect.open .customSelectChevron {
+  transform: rotate(180deg) translateY(1px);
+}
+.customSelectMenu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: min(330px, 56vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 5px;
+  border: 1px solid #cad9eb;
+  border-radius: 12px;
+  background: rgba(255,255,255,.98);
+  box-shadow:
+    0 18px 45px rgba(20,45,78,.18),
+    0 3px 10px rgba(20,45,78,.08);
+  backdrop-filter: blur(12px);
+}
+.customProgramSelect.open .customSelectMenu {
+  display: grid;
+  gap: 2px;
+}
+.customProgramSelect.openUp .customSelectMenu {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+.customSelectOption {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 27px minmax(0,1fr);
+  align-items: center;
+  gap: 7px;
+  padding: 8px 8px;
+  border-radius: 8px;
+  background: transparent;
+  color: #263247;
+  text-align: left;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  box-shadow: none;
+}
+.customSelectOption:hover,
+.customSelectOption:focus-visible {
+  background: #edf5ff;
+  outline: none;
+}
+.customSelectOption.selected {
+  background: #e2efff;
+  color: #174f9e;
+}
+.customSelectOption.selected .customSelectOptionNumber {
+  background: #2563eb;
+  color: #fff;
+}
+.customSelectOptionLabel {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.customSelectMenu::-webkit-scrollbar {
+  width: 8px;
+}
+.customSelectMenu::-webkit-scrollbar-track {
+  background: transparent;
+}
+.customSelectMenu::-webkit-scrollbar-thumb {
+  background: #c3d4e9;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+body.dark .customSelectTrigger {
+  border-color: #33445b;
+  background: #141b25;
+  color: #eef4fb;
+}
+body.dark .customSelectTrigger:hover {
+  border-color: #486485;
+  background: #182230;
+}
+body.dark .customProgramSelect.open .customSelectTrigger {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96,165,250,.12);
+}
+body.dark .customSelectNumber,
+body.dark .customSelectOptionNumber {
+  background: #17345a;
+  color: #86baff;
+}
+body.dark .customSelectChevron {
+  color: #8fa4bd;
+}
+body.dark .customSelectMenu {
+  border-color: #33445b;
+  background: rgba(17,23,32,.98);
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.34),
+    0 3px 12px rgba(0,0,0,.22);
+}
+body.dark .customSelectOption {
+  color: #e3ebf5;
+}
+body.dark .customSelectOption:hover,
+body.dark .customSelectOption:focus-visible {
+  background: #1b2a3d;
+}
+body.dark .customSelectOption.selected {
+  background: #173a66;
+  color: #dcebff;
+}
+body.dark .customSelectOption.selected .customSelectOptionNumber {
+  background: #3b82f6;
+  color: #fff;
+}
+body.dark .customSelectMenu::-webkit-scrollbar-thumb {
+  background: #405570;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+@media (max-width: 350px) {
+.customSelectTrigger {
+    grid-template-columns: 23px minmax(0,1fr) 16px;
+    gap: 6px;
+    padding: 8px 8px;
+    font-size: 11px;
+  }
+.customSelectOption {
+    grid-template-columns: 24px minmax(0,1fr);
+    gap: 6px;
+    padding: 7px;
+    font-size: 11px;
+  }
+.customSelectNumber,
+.customSelectOptionNumber {
+    min-width: 22px;
+    height: 20px;
+    font-size: 9.5px;
+  }
+}
+/* v1.1.22 — one-button plan generation */
+.buttonRow.singleAction {
+  grid-template-columns: 1fr;
+}
+.buttonRow.singleAction .primary {
+  width: 100%;
+}
+/* v1.1.24 — discovery status remains internal,
+not user-facing */
+.uiInternalDiscoveryStatus {
+  display: none !important;
+}
+/* v1.1.26 — cleaner program position UI */
+.uiInternalMappingStatus {
+  display: none !important;
+}
+.programProgress {
+  width: min(190px, 100%);
+  margin: 0 auto 7px;
+}
+.programProgressTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.programProgressLabel {
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+.programProgressCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  height: 23px;
+  padding: 0 8px;
+  border: 1px solid rgba(37,99,235,.20);
+  border-radius: 999px;
+  background: rgba(37,99,235,.08);
+  color: #1d5fc4;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .05em;
+  font-variant-numeric: tabular-nums;
+}
+.programProgressTrack {
+  position: relative;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(37,99,235,.12);
+}
+.programProgressFill {
+  display: block;
+  width: 4%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    #60a5fa
+  );
+  box-shadow: 0 0 8px rgba(37,99,235,.18);
+  transition: width .2s ease;
+}
+body.dark .programProgressCount {
+  border-color: rgba(96,165,250,.24);
+  background: rgba(59,130,246,.12);
+  color: #8fc1ff;
+}
+body.dark .programProgressTrack {
+  background: rgba(96,165,250,.14);
+}
+body.dark .programProgressFill {
+  background: linear-gradient(
+    90deg,
+    #3b82f6,
+    #93c5fd
+  );
+  box-shadow: 0 0 8px rgba(96,165,250,.20);
+}
+
+@media (max-width: 350px) {
+.programProgress {
+    width: min(165px, 100%);
+  }
+.programProgressCount {
+    min-width: 54px;
+    height: 21px;
+    font-size: 9.5px;
+  }
+}
+/* v1.1.27 — remove redundant planning summary boxes from the RBT UI.
+   Values remain in the DOM because the planning engine still uses them. */
+.summaryGrid {
+  display: none !important;
+}
+/* v1.1.29 — internal mapping/discovery diagnostics are never user-facing */
+.uiInternalDiagnostic {
+  display: none !important;
+}
+/* Softer type hierarchy: less heavy,
+easier on the eyes. */
+.label,
+.field > span {
+  font-weight: 600;
+}
+.value,
+.behaviorCenter h2,
+.batchItemName {
+  font-weight: 650;
+}
+button {
+  font-weight: 650;
+}
+.eyebrow,
+.pill,
+.badge,
+.programProgressLabel,
+.programProgressCount {
+  font-weight: 700;
+}
+.weekDayCard .day {
+  font-weight: 600;
+}
+.weekDayCard .num,
+.bigNumber {
+  font-weight: 700;
+}
+/* Unified planned/review trial language — blue palette only. */
+.trialGrid {
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 7px;
+  margin-top: 9px;
+}
+.trialChip {
+  min-height: 42px;
+  display: grid;
+  grid-template-columns: 22px minmax(0,1fr);
+  align-items: center;
+  gap: 6px;
+  padding: 6px 7px;
+  border: 1px solid rgba(37,99,235,.16);
+  border-radius: 11px;
+  background: rgba(37,99,235,.035);
+  color: #31547f;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.42);
+}
+.trialIndex {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: rgba(37,99,235,.09);
+  color: #5d78a0;
+  font-size: 9px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.trialState {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 650;
+}
+/* "+" = stronger blue; "-" = quieter blue/slate. No red/green semantics. */
+.trialChip.plus {
+  background: rgba(37,99,235,.13);
+  color: #1d4ed8;
+  border-color: rgba(37,99,235,.34);
+}
+.trialChip.plus .trialIndex {
+  background: #2563eb;
+  color: #fff;
+}
+.trialChip.minus {
+  background: rgba(59,130,246,.045);
+  color: #647d9e;
+  border-color: rgba(96,165,250,.20);
+}
+.trialChip.minus .trialIndex {
+  background: rgba(96,165,250,.13);
+  color: #55759d;
+}
+.trialChip.blank {
+  background: rgba(148,163,184,.045);
+  color: #8b9aaf;
+  border-color: rgba(148,163,184,.16);
+}
+.trialChip.blank .trialIndex {
+  background: rgba(148,163,184,.10);
+  color: #8290a3;
+}
+button.trialChip:hover,
+button.trialChip:focus-visible {
+  border-color: rgba(37,99,235,.46);
+  background: rgba(37,99,235,.10);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.08);
+}
+.planGrid {
+  padding: 8px;
+  border: 1px solid rgba(37,99,235,.12);
+  border-radius: 13px;
+  background: rgba(37,99,235,.025);
+}
+/* Dark-mode version keeps the same blue language. */
+body.dark .trialChip {
+  background: rgba(96,165,250,.045);
+  border-color: rgba(96,165,250,.15);
+  color: #afc2dc;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+body.dark .trialChip.plus {
+  background: rgba(59,130,246,.18);
+  border-color: rgba(96,165,250,.38);
+  color: #b9d8ff;
+}
+body.dark .trialChip.plus .trialIndex {
+  background: #3b82f6;
+  color: #fff;
+}
+body.dark .trialChip.minus {
+  background: rgba(96,165,250,.055);
+  border-color: rgba(96,165,250,.17);
+  color: #8faaca;
+}
+body.dark .trialChip.minus .trialIndex {
+  background: rgba(96,165,250,.13);
+  color: #a8c4e5;
+}
+body.dark .trialChip.blank {
+  background: rgba(148,163,184,.035);
+  border-color: rgba(148,163,184,.12);
+  color: #728096;
+}
+body.dark .trialChip.blank .trialIndex {
+  background: rgba(148,163,184,.08);
+  color: #8493a8;
+}
+body.dark button.trialChip:hover,
+body.dark button.trialChip:focus-visible {
+  border-color: rgba(96,165,250,.48);
+  background: rgba(59,130,246,.14);
+  box-shadow: 0 0 0 3px rgba(96,165,250,.08);
+}
+body.dark .planGrid {
+  border-color: rgba(96,165,250,.12);
+  background: rgba(96,165,250,.025);
+}
+
+@media (max-width:350px) {
+.trialGrid {
+    gap: 5px;
+  }
+.trialChip {
+    min-height: 39px;
+    grid-template-columns: 19px minmax(0,1fr);
+    gap: 4px;
+    padding: 5px;
+  }
+.trialIndex {
+    width: 19px;
+    height: 19px;
+    font-size: 8px;
+  }
+.trialState {
+    font-size: 14px;
+  }
+}
+/* v1.1.31 — blue caution actions.
+   Keep destructive/stop actions distinct without introducing red. */
+button.dangerSoft,
+#stickyStop,
+#autoBatchStop {
+  border: 1px solid rgba(30,64,175,.38) !important;
+  background: rgba(30,64,175,.10) !important;
+  color: #1e3a8a !important;
+  box-shadow: none !important;
+}
+button.dangerSoft:hover:not(:disabled),
+#stickyStop:hover:not(:disabled),
+#autoBatchStop:hover:not(:disabled) {
+  border-color: rgba(30,64,175,.58) !important;
+  background: rgba(30,64,175,.16) !important;
+  color: #172f73 !important;
+}
+button.dangerSoft:focus-visible,
+#stickyStop:focus-visible,
+#autoBatchStop:focus-visible {
+  outline: none;
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12) !important;
+}
+#stickyStop:disabled,
+#autoBatchStop:disabled {
+  opacity: .38;
+}
+body.dark button.dangerSoft,
+body.dark #stickyStop,
+body.dark #autoBatchStop {
+  border-color: rgba(96,165,250,.28) !important;
+  background: rgba(30,64,175,.18) !important;
+  color: #a9c9ff !important;
+}
+body.dark button.dangerSoft:hover:not(:disabled),
+body.dark #stickyStop:hover:not(:disabled),
+body.dark #autoBatchStop:hover:not(:disabled) {
+  border-color: rgba(96,165,250,.46) !important;
+  background: rgba(37,99,235,.24) !important;
+  color: #d7e8ff !important;
+}
+/* ============================================================
+   v1.1.39 — App-wide customization layer
+   Presentation only: no Office Puzzle DOM/writer hooks are removed.
+   ============================================================ */
+
+.customizeBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  background: rgba(5,10,20,.48);
+  backdrop-filter: blur(3px);
+}
+.customizeBackdrop[hidden] {
+  display: none !important;
+}
+.customizeDrawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(390px, 94vw);
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 14px 22px;
+  background: var(--card);
+  color: var(--text);
+  border-left: 1px solid var(--border);
+  box-shadow: -18px 0 48px rgba(5,10,20,.22);
+}
+.customizeHeader {
+  position: sticky;
+  top: -16px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin: -16px -14px 12px;
+  padding: 17px 14px 13px;
+  background: color-mix(in srgb, var(--card) 94%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.customizeHeader h2 {
+  margin-top: 3px;
+  font-size: 17px;
+}
+.customizeSubtitle {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.35;
+}
+.customizeSection {
+  margin-top: 11px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--card) 97%, var(--accent) 3%);
+}
+.customizeSectionTitle {
+  margin-bottom: 9px;
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+}
+.presetGrid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 6px;
+}
+.customizePreset {
+  min-width: 0;
+  min-height: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 6px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 95%, var(--accent) 5%);
+  color: var(--text);
+}
+.customizePreset strong {
+  font-size: 11px;
+  font-weight: 700;
+}
+.customizePreset span {
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.25;
+}
+.customizePreset.active {
+  border-color: color-mix(in srgb, var(--accent) 65%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--card));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.customSwitch,
+.customizeSelectRow {
+  min-height: 45px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 68%, transparent);
+}
+.customSwitch:last-child,
+.customizeSelectRow:last-child {
+  border-bottom: 0;
+}
+.customSwitch > span,
+.customizeSelectRow > span {
+  min-width: 0;
+}
+.customSwitch strong,
+.customizeSelectRow strong {
+  display: block;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 650;
+}
+.customSwitch small,
+.customizeSelectRow small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.28;
+}
+.customSwitch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.customSwitch i {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 24%, var(--card));
+  border: 1px solid var(--border);
+  transition: background .15s ease, border-color .15s ease;
+}
+.customSwitch i::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.20);
+  transition: transform .15s ease;
+}
+.customSwitch input:checked + i {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.customSwitch input:checked + i::after {
+  transform: translateX(16px);
+}
+.customSwitch:focus-within i {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.customizeSelectRow select {
+  width: 105px;
+  min-width: 105px;
+  padding: 7px 8px;
+  font-size: 10px;
+}
+.customizeFooter {
+  position: sticky;
+  bottom: -22px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin: 12px -14px -22px;
+  padding: 12px 14px 18px;
+  background: color-mix(in srgb, var(--card) 94%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+}
+body.customizeOpen {
+  overflow: hidden;
+}
+/* Visibility settings — UI only. Elements remain in the DOM. */
+body.ui-hide-client-card .contextCard {
+  display: none !important;
+}
+body.ui-hide-program-progress .programProgress {
+  display: none !important;
+}
+body.ui-hide-program-title .behaviorCenter > h2 {
+  display: none !important;
+}
+body.ui-hide-program-selector .uiRegionProgramSelector {
+  display: none !important;
+}
+body.ui-hide-planning-inputs .uiRegionPlanningInput {
+  display: none !important;
+}
+body.ui-hide-generate .uiRegionGenerate {
+  display: none !important;
+}
+body.ui-hide-week-overview .weekNavigatorShell,
+body.ui-hide-week-overview .weekPlan {
+  display: none !important;
+}
+body.ui-hide-selected-day .todayBox {
+  display: none !important;
+}
+body.ui-hide-planned-patterns .uiRegionPlannedPattern {
+  display: none !important;
+}
+body.ui-hide-clear-column .uiRegionClearColumn {
+  display: none !important;
+}
+body.ui-hide-batch-review .batchPanel {
+  display: none !important;
+}
+body.ui-hide-batch-control .autoBatchCard {
+  display: none !important;
+}
+body.ui-hide-sticky-bar .stickyActionBar {
+  display: none !important;
+}
+body.ui-hide-helper-text .uiRegionHelperText {
+  display: none !important;
+}
+body.ui-static-header .topbar {
+  position: relative;
+}
+body.ui-no-motion *,
+body.ui-no-motion *::before,
+body.ui-no-motion *::after {
+  scroll-behavior: auto !important;
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+/* Density settings */
+body[data-ui-density="tight"] main {
+  padding: 6px;
+  gap: 6px;
+}
+body[data-ui-density="tight"] .card {
+  padding: 8px;
+  border-radius: 10px;
+}
+body[data-ui-density="tight"] .field {
+  margin-top: 6px;
+}
+body[data-ui-density="tight"] .full {
+  margin-top: 5px;
+}
+body[data-ui-density="tight"] .todayBox,
+body[data-ui-density="tight"] .batchPanel {
+  margin-top: 6px;
+}
+body[data-ui-density="tight"] .weekPlan {
+  gap: 4px;
+  margin-top: 6px;
+}
+body[data-ui-density="tight"] .weekDayCard {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+body[data-ui-density="roomy"] main {
+  padding: 15px;
+  gap: 13px;
+}
+body[data-ui-density="roomy"] .card {
+  padding: 16px;
+  border-radius: 16px;
+}
+body[data-ui-density="roomy"] .field {
+  margin-top: 14px;
+}
+body[data-ui-density="roomy"] .full {
+  margin-top: 11px;
+}
+body[data-ui-density="roomy"] .todayBox,
+body[data-ui-density="roomy"] .batchPanel {
+  margin-top: 14px;
+}
+body[data-ui-density="roomy"] .weekPlan {
+  gap: 8px;
+  margin-top: 14px;
+}
+/* Blue-only accent variants */
+body[data-ui-accent="deep"] {
+  --accent: #1d4ed8;
+  --accent2: #1e3a8a;
+}
+body[data-ui-accent="soft"] {
+  --accent: #3b82f6;
+  --accent2: #2563eb;
+}
+body.dark[data-ui-accent="deep"] {
+  --accent: #60a5fa;
+  --accent2: #3b82f6;
+}
+body.dark[data-ui-accent="soft"] {
+  --accent: #93c5fd;
+  --accent2: #60a5fa;
+}
+/* Planned +/- pattern is intentionally hidden in Balanced by default.
+   Customize > Planned trial / interval patterns restores it instantly. */
+
+
+/* v1.1.40 — remove the challenging selected-day percentage/hours card.
+   Internal hooks remain hidden so existing rendering logic stays intact. */
+.uiInternalOnly {
+  display: none !important;
+}
+/* v1.1.41 — per-item batch removal */
+.batchItemActions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+.batchDeleteButton {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(59,130,246,.22);
+  border-radius: 8px;
+  background: rgba(37,99,235,.07);
+  color: #5f7faa;
+}
+.batchDeleteButton svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+  pointer-events: none;
+}
+.batchDeleteButton:hover:not(:disabled),
+.batchDeleteButton:focus-visible:not(:disabled) {
+  color: #dbeafe;
+  background: rgba(30,64,175,.72);
+  border-color: rgba(96,165,250,.50);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.10);
+}
+.batchDeleteButton:disabled {
+  opacity: .30;
+  cursor: not-allowed;
+}
+body.dark .batchDeleteButton {
+  color: #8fb4e5;
+  background: rgba(37,99,235,.09);
+  border-color: rgba(96,165,250,.18);
+}
+body.dark .batchDeleteButton:hover:not(:disabled),
+body.dark .batchDeleteButton:focus-visible:not(:disabled) {
+  color: #eff6ff;
+  background: rgba(30,64,175,.72);
+  border-color: rgba(147,197,253,.48);
+}
+
+@media (max-width:350px) {
+.batchItem {
+    gap: 6px;
+  }
+.batchItemActions {
+    gap: 5px;
+  }
+.batchDeleteButton {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+  }
+}
+/* v1.1.42 — keep selected-day planned percentage visible,
+while saved day hours remain internal-only. */
+.challengingSelectedDayOnly {
+  display: block;
+}
+.challengingSelectedDayOnly .bigNumber {
+  margin-top: 2px;
+}
+/* v1.1.43 — simplified,
+first-time-friendly batch controls */
+.autoBatchCard {
+  padding-top: 11px;
+}
+.batchRunStatus {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  padding: 8px 9px;
+  border: 1px solid rgba(59,130,246,.14);
+  border-radius: 9px;
+  background: rgba(37,99,235,.045);
+  color: var(--text);
+  font-size: 11px;
+  line-height: 1.3;
+}
+.simplifiedProgress {
+  margin-top: 9px;
+}
+.simplifiedProgress .autoProgressTrack {
+  height: 7px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.batchPrimaryActions {
+  margin-top: 9px;
+}
+.batchPrimaryActions > button {
+  min-height: 36px;
+}
+body.dark .batchRunStatus {
+  border-color: rgba(96,165,250,.14);
+  background: rgba(37,99,235,.055);
+}
+.stickyActionBar #stickyAddBatch,
+.stickyActionBar #stickyAutoRun {
+  font-weight: 700;
+}
+/* v1.1.46 — trial/interval outcome symbols are internal only.
+   Users never see the generated symbol sequence. */
+#plannedTrialPattern,
+#challengingPlannedPattern,
+#client2ReplacementPlannedPattern,
+#reviewedTrialGrid,
+#reviewedChallengingGrid,
+#reviewedClient2ReplacementGrid {
+  display: none !important;
+}
+/* v1.1.47 — secondary/destructive actions stay out of the main workflow */
+.moreActions {
+  margin-top: 10px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(127,127,127,.14);
+}
+.moreActions > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 6px 2px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 650;
+  user-select: none;
+}
+.moreActions > summary::-webkit-details-marker {
+  display: none;
+}
+.moreActions > summary::after {
+  content: "⌄";
+  float: right;
+  color: var(--accent);
+  transition: transform .15s ease;
+}
+.moreActions[open] > summary::after {
+  transform: rotate(180deg);
+}
+.moreActionsBody {
+  padding-top: 4px;
+}
+.moreActionsBody .bindingText {
+  margin: 5px 2px 0;
+}
+body.ui-no-motion .moreActions > summary::after {
+  transition: none;
+}
+/* ============================================================
+   v1.1.48 — instant-start shell
+   Keeps the panel visually stable while the live Office Puzzle refresh runs.
+   ============================================================ */
+.startupSkeleton {
+  min-height: 430px;
+  overflow: hidden;
+}
+.startupSkeleton[hidden] {
+  display: none !important;
+}
+.skeletonLine,
+.skeletonGrid span {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--border) 62%, var(--card));
+}
+.skeletonLine::after,
+.skeletonGrid span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 10%, transparent) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: rbtSkeletonSweep 1.1s ease-in-out infinite;
+}
+.skeletonEyebrow { width: 86px; height: 9px; }
+.skeletonTitle { width: 62%; height: 26px; margin-top: 16px; }
+.skeletonField { width: 100%; height: 48px; margin-top: 22px; }
+.skeletonButton { width: 100%; height: 36px; margin-top: 10px; }
+.skeletonCard { width: 100%; height: 76px; margin-top: 16px; }
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 6px;
+  margin-top: 14px;
+}
+.skeletonGrid span { height: 55px; }
+
+@keyframes rbtSkeletonSweep {
+to { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+.skeletonLine::after,
+.skeletonGrid span::after {
+    animation: none !important;
+    transform: none !important;
+    opacity: .22;
+  }
+}

@@ -1,0 +1,26 @@
+<!doctype html><meta charset='utf-8'><div id='result'>pending</div>
+<table id='t'>
+<tr><td>20</td><td></td><td></td><td></td><td></td><td class='future'></td><td class='future'></td><td class='future'></td></tr>
+<tr><td>1</td><td>x</td><td>x</td><td>x</td><td>x</td><td class='future'></td><td class='future'></td><td class='future'></td></tr>
+<tr id='days'><td>Days</td><td>27</td><td>28</td><td>29</td><td>30</td><td>01</td><td>02</td><td>03</td></tr>
+<tr><td>Weekly average</td><td colspan='7'>19</td></tr>
+<tr><td>Initials</td><td>AD</td><td>AD</td><td>AD</td><td>AD</td><td></td><td></td><td></td></tr>
+<tr><td></td><td><button aria-label='Settings'>⚙</button></td><td><button aria-label='Settings'>⚙</button></td><td><button aria-label='Settings'>⚙</button></td><td><button aria-label='Settings'>⚙</button></td><td></td><td></td><td></td></tr>
+</table>
+<script>
+function isVisible(el){ if(!el||!el.isConnected)return false; const style=getComputedStyle(el); if(style.display==='none'||style.visibility==='hidden')return false; const r=el.getBoundingClientRect(); return r.width>0&&r.height>0; }
+function textOf(el){return (el?.innerText||el?.textContent||'').replace(/\s+/g,' ').trim();}
+function normalize(s){return String(s||'').toLowerCase().replace(/[’']/g,'').replace(/&/g,'and').replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim();}
+function cellsOfRow(row){return [...row.children].filter(el=>el.tagName==='TD'||el.tagName==='TH');}
+function findNamedRow(table,rowName){const target=normalize(rowName);for(const row of [...table.rows]){const c=cellsOfRow(row);if(c.length&&normalize(textOf(c[0]))===target)return row;}return null;}
+function logicalCellAt(rowCells,logicalIndex){let cursor=0;for(const cell of rowCells){const span=Math.max(1,Number(cell.colSpan||1));if(logicalIndex>=cursor&&logicalIndex<cursor+span)return cell;cursor+=span;}return null;}
+function cellForDayIndex(rowCells,dayCells,dayIndex){return logicalCellAt(rowCells,dayIndex+1)||rowCells[dayIndex+1]||null;}
+function clickableFromIconElement(el){return el.closest?.('button,a,[role="button"],[onclick]')||el;}
+function gearHintScore(el){if(!el||!isVisible(el))return -1;const hint=normalize([textOf(el),el.getAttribute?.('title'),el.getAttribute?.('aria-label'),el.getAttribute?.('class'),el.getAttribute?.('data-original-title')].filter(Boolean).join(' '));let score=0;if(/\bgear\b|\bcog\b|\bsetting\b|\bmanage\b/.test(hint))score+=20;if(el.matches?.('button,a,[role="button"],[onclick]'))score+=5;try{if(getComputedStyle(el).cursor==='pointer')score+=3;}catch(_){}return score;}
+function dateCellExplicitlyDisabled(cell){if(!cell)return false;const cls=normalize(cell.getAttribute?.('class')||'');const state=normalize([cell.getAttribute?.('aria-disabled'),cell.getAttribute?.('data-disabled'),cell.getAttribute?.('data-readonly'),cell.getAttribute?.('data-read-only')].filter(Boolean).join(' '));if(cell.disabled===true||cell.hasAttribute?.('disabled')||/(?:^|\s)(?:disabled|inactive|locked|readonly|read\s+only|unavailable|future)(?:\s|$)/.test(cls)||/^(?:true|disabled|locked|readonly|unavailable)$/.test(state))return true;try{const style=getComputedStyle(cell);if(style.pointerEvents==='none')return true;const opacity=Number(style.opacity);if(Number.isFinite(opacity)&&opacity>0&&opacity<0.28)return true;}catch(_){}return false;}
+function cellHasEnabledDateControl(cell,{strong=false}={}){if(!cell||dateCellExplicitlyDisabled(cell))return false;const nodes=[...cell.querySelectorAll?.('button,a,[role="button"],[onclick],[tabindex],i,svg,span')||[]];if(!strong)nodes.push(cell);for(const node of nodes){if(!node||!isVisible(node)||dateCellExplicitlyDisabled(node))continue;const target=clickableFromIconElement(node);if(!target||!isVisible(target)||dateCellExplicitlyDisabled(target))continue;const nodeHint=gearHintScore(node);const targetHint=gearHintScore(target);const semanticGear=Math.max(nodeHint,targetHint)>=20;const explicitControl=target.matches?.('button,a,[role="button"],[onclick]');if(strong?(semanticGear||explicitControl):Math.max(nodeHint,targetHint)>0)return true;}return false;}
+function writableDatesForTable(table,daysRow,dates){const dayCells=cellsOfRow(daysRow);const rows=[...table.rows];const initialsRow=findNamedRow(table,'Initials');const initialsIndex=initialsRow?rows.indexOf(initialsRow):-1;const explicitWritable=new Set();if(initialsIndex>=0){const controlRows=rows.slice(initialsIndex,Math.min(rows.length,initialsIndex+4));dates.forEach((date,dayIndex)=>{for(const row of controlRows){const cell=cellForDayIndex(cellsOfRow(row),dayCells,dayIndex);if(cellHasEnabledDateControl(cell,{strong:true})){explicitWritable.add(date);break;}}});}if(explicitWritable.size)return dates.filter(d=>explicitWritable.has(d));return [];}
+const dates=['2026-09-27','2026-09-28','2026-09-29','2026-09-30','2026-10-01','2026-10-02','2026-10-03'];
+const got=writableDatesForTable(document.querySelector('#t'),document.querySelector('#days'),dates);
+document.querySelector('#result').textContent=JSON.stringify(got);
+</script>
